@@ -14,6 +14,10 @@ const signupSchema = z.object({
   nickname: z.string().trim().min(2, "Mínimo 2 caracteres").max(40).regex(/^[a-zA-Z0-9_.-]+$/, "Use letras, números, _ . -"),
   email: z.string().trim().email("Email inválido").max(255),
   password: z.string().min(6, "Senha precisa de pelo menos 6 caracteres").max(72),
+  confirmPassword: z.string().min(1, "Confirme sua senha"),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "As senhas não coincidem",
+  path: ["confirmPassword"],
 });
 
 const loginSchema = z.object({
