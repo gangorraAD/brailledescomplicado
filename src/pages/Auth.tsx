@@ -64,7 +64,8 @@ export default function Auth() {
       return;
     }
     setBusy(true);
-    const { error } = await supabase.auth.signInWithPassword(parsed.data);
+    const { email, password } = parsed.data;
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
     if (error) {
       toast({ title: "Não foi possível entrar", description: error.message, variant: "destructive" });
