@@ -124,6 +124,10 @@ export default function Auth() {
               <Label htmlFor="password">Senha</Label>
               <Input id="password" name="password" type="password" autoComplete="new-password" required />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">Repetir senha</Label>
+              <Input id="confirmPassword" name="confirmPassword" type="password" autoComplete="new-password" required />
+            </div>
             <Button type="submit" className="w-full" disabled={busy}>
               {busy ? "Enviando..." : "Cadastrar"}
             </Button>
