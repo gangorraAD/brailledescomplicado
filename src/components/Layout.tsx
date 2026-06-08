@@ -5,11 +5,13 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { BrailleLogo } from "@/components/BrailleLogo";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Layout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(0);
   const location = useLocation();
+  const { user, profile, isAdmin, signOut } = useAuth();
 
   useEffect(() => setOpen(false), [location.pathname]);
 
@@ -60,6 +62,23 @@ export function Layout({ children }: { children: ReactNode }) {
             <NavLink to="/cela" className={({ isActive }) => navClass(isActive)}>
               Cela interativa
             </NavLink>
+            {isAdmin && (
+              <NavLink to="/admin" className={({ isActive }) => navClass(isActive)}>
+                Admin
+              </NavLink>
+            )}
+            {user ? (
+              <>
+                <span className="ml-2 text-sm text-muted-foreground">
+                  {profile?.nickname ?? profile?.name ?? user.email}
+                </span>
+                <Button variant="ghost" size="sm" onClick={signOut}>Sair</Button>
+              </>
+            ) : (
+              <NavLink to="/auth" className={({ isActive }) => navClass(isActive)}>
+                Entrar
+              </NavLink>
+            )}
           </nav>
           <Button
             variant="outline"
