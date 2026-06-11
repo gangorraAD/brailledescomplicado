@@ -80,16 +80,18 @@ export function Layout({ children }: { children: ReactNode }) {
               </NavLink>
             )}
           </nav>
-          <Button
-            variant="outline"
-            size="icon"
-            className="lg:hidden"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X /> : <Menu />}
-          </Button>
+          {user && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="lg:hidden"
+              aria-label={open ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X /> : <Menu />}
+            </Button>
+          )}
         </div>
         {/* Progresso de leitura */}
         <div
@@ -108,13 +110,15 @@ export function Layout({ children }: { children: ReactNode }) {
       </header>
 
       <div className="mx-auto flex max-w-7xl gap-8 px-4 py-8">
-        {/* Sidebar desktop */}
-        <aside aria-label="Sumário do livro" className="sticky top-24 hidden h-[calc(100vh-7rem)] w-64 shrink-0 overflow-y-auto lg:block">
-          <SidebarNav />
-        </aside>
+        {/* Sidebar desktop — só após login */}
+        {user && (
+          <aside aria-label="Sumário do livro" className="sticky top-24 hidden h-[calc(100vh-7rem)] w-64 shrink-0 overflow-y-auto lg:block">
+            <SidebarNav />
+          </aside>
+        )}
 
-        {/* Mobile drawer */}
-        {open && (
+        {/* Mobile drawer — só após login */}
+        {user && open && (
           <div className="fixed inset-0 z-30 lg:hidden" role="dialog" aria-modal="true" aria-label="Sumário">
             <div className="absolute inset-0 bg-foreground/40" onClick={() => setOpen(false)} />
             <div className="absolute right-0 top-[57px] h-[calc(100vh-57px)] w-80 max-w-[85vw] overflow-y-auto bg-card p-4 shadow-xl">
