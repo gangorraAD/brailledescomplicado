@@ -80,16 +80,18 @@ export function Layout({ children }: { children: ReactNode }) {
               </NavLink>
             )}
           </nav>
-          <Button
-            variant="outline"
-            size="icon"
-            className="lg:hidden"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? <X /> : <Menu />}
-          </Button>
+          {user && (
+            <Button
+              variant="outline"
+              size="icon"
+              className="lg:hidden"
+              aria-label={open ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={open}
+              onClick={() => setOpen((v) => !v)}
+            >
+              {open ? <X /> : <Menu />}
+            </Button>
+          )}
         </div>
         {/* Progresso de leitura */}
         <div
