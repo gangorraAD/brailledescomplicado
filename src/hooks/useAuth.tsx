@@ -7,6 +7,7 @@ export type Profile = {
   name: string;
   nickname: string;
   email: string;
+  phone: string;
   approved: boolean;
   created_at: string;
 };
