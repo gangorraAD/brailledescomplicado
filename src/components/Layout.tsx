@@ -62,6 +62,11 @@ export function Layout({ children }: { children: ReactNode }) {
             <NavLink to="/cela" className={({ isActive }) => navClass(isActive)}>
               Cela interativa
             </NavLink>
+            {user && (
+              <NavLink to="/materiais" className={({ isActive }) => navClass(isActive)}>
+                Materiais
+              </NavLink>
+            )}
             {isAdmin && (
               <NavLink to="/admin" className={({ isActive }) => navClass(isActive)}>
                 Admin
