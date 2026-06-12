@@ -12,6 +12,7 @@ import Index from "./pages/Index.tsx";
 import Chapter from "./pages/Chapter.tsx";
 import CelaPage from "./pages/CelaPage.tsx";
 import Sumario from "./pages/Sumario.tsx";
+import Materiais from "./pages/Materiais.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
               <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
               <Route path="/sumario" element={<ProtectedRoute><Sumario /></ProtectedRoute>} />
               <Route path="/cela" element={<ProtectedRoute><CelaPage /></ProtectedRoute>} />
+              <Route path="/materiais" element={<ProtectedRoute><Materiais /></ProtectedRoute>} />
               <Route path="/:slug" element={<ProtectedRoute><Chapter /></ProtectedRoute>} />
               <Route path="*" element={<NotFound />} />
             </Routes>

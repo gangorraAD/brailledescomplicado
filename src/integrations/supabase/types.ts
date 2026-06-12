@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      materials: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          file_name: string
+          file_path: string
+          file_size: number
+          id: string
+          is_public: boolean
+          kind: Database["public"]["Enums"]["material_kind"]
+          mime_type: string | null
+          recipient_id: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          file_name: string
+          file_path: string
+          file_size?: number
+          id?: string
+          is_public?: boolean
+          kind?: Database["public"]["Enums"]["material_kind"]
+          mime_type?: string | null
+          recipient_id?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          file_name?: string
+          file_path?: string
+          file_size?: number
+          id?: string
+          is_public?: boolean
+          kind?: Database["public"]["Enums"]["material_kind"]
+          mime_type?: string | null
+          recipient_id?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           approved: boolean
@@ -84,6 +132,13 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      material_kind:
+        | "documento"
+        | "atividade"
+        | "imagem"
+        | "audio"
+        | "video"
+        | "outro"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -212,6 +267,14 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      material_kind: [
+        "documento",
+        "atividade",
+        "imagem",
+        "audio",
+        "video",
+        "outro",
+      ],
     },
   },
 } as const
