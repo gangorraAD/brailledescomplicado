@@ -13,6 +13,7 @@ const signupSchema = z.object({
   name: z.string().trim().min(2, "Informe seu nome").max(100),
   nickname: z.string().trim().min(2, "Mínimo 2 caracteres").max(40).regex(/^[a-zA-Z0-9_.-]+$/, "Use letras, números, _ . -"),
   email: z.string().trim().email("Email inválido").max(255),
+  phone: z.string().trim().min(8, "Informe um telefone válido").max(20).regex(/^[0-9+()\-\s]+$/, "Use apenas números e + ( ) -"),
   password: z.string().min(6, "Senha precisa de pelo menos 6 caracteres").max(72),
   confirmPassword: z.string().min(1, "Confirme sua senha"),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -41,13 +42,13 @@ export default function Auth() {
       return;
     }
     setBusy(true);
-    const { name, nickname, email, password } = parsed.data;
+    const { name, nickname, email, phone, password } = parsed.data;
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/`,
-        data: { name, nickname },
+        data: { name, nickname, phone },
       },
     });
     setBusy(false);
@@ -119,6 +120,10 @@ export default function Auth() {
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input id="email" name="email" type="email" autoComplete="email" required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">Telefone</Label>
+              <Input id="phone" name="phone" type="tel" autoComplete="tel" placeholder="(11) 91234-5678" required />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Senha</Label>
