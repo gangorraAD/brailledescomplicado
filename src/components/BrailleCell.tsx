@@ -9,10 +9,10 @@ interface Props {
   size?: "md" | "lg";
 }
 
-// Mapeamento padrão de leitura: ponto -> posição visual
-// Layout: 2 colunas x 3 linhas
-// Coluna esquerda (cima→baixo): 1, 2, 3 | Coluna direita: 4, 5, 6
-const VISUAL_ORDER = [1, 4, 2, 5, 3, 6];
+// Ordem de leitura (DOM e leitor de tela): 1, 2, 3, 4, 5, 6
+// Layout visual: 2 colunas x 3 linhas, preenchidas por coluna
+// (esquerda cima→baixo: 1,2,3 | direita cima→baixo: 4,5,6)
+const READING_ORDER = [1, 2, 3, 4, 5, 6];
 
 export function BrailleCell({ size = "lg" }: Props) {
   const [active, setActive] = useState<Set<number>>(new Set());
@@ -112,11 +112,11 @@ export function BrailleCell({ size = "lg" }: Props) {
         {/* Cela */}
         <div className="flex flex-col items-center gap-4">
           <div
-            className="grid grid-cols-2 gap-4 rounded-2xl bg-gradient-to-br from-secondary/60 to-accent/60 p-6 shadow-inner"
+            className="grid grid-cols-2 grid-rows-3 grid-flow-col gap-4 rounded-2xl bg-gradient-to-br from-secondary/60 to-accent/60 p-6 shadow-inner"
             role="group"
-            aria-label="Cela Braille com 6 pontos"
+            aria-label="Cela Braille com 6 pontos, na ordem 1, 2, 3, 4, 5, 6"
           >
-            {VISUAL_ORDER.map((dot) => {
+            {READING_ORDER.map((dot) => {
               const on = active.has(dot);
               return (
                 <button
