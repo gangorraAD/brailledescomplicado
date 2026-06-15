@@ -81,9 +81,11 @@ export default function Auth() {
 
   return (
     <div className="mx-auto max-w-md py-10">
-      <h1 className="mb-6 text-3xl font-bold text-primary">Acesso restrito</h1>
+      <h1 className="mb-6 text-3xl font-bold text-primary">Entre na oficina</h1>
       <p className="mb-6 text-muted-foreground">
-        Cadastre-se ou entre para ler o livro. Novos cadastros precisam ser aprovados pelo administrador.
+        A <strong>Cela Interativa</strong> é gratuita e está liberada para todos. Cadastre-se ou
+        entre para acessar o e-book completo, capítulos, vídeos, atividades e materiais da oficina.
+        Novos cadastros precisam ser aprovados pelo administrador.
       </p>
       <Tabs defaultValue="login">
         <TabsList className="grid w-full grid-cols-2">

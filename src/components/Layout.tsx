@@ -41,7 +41,7 @@ export function Layout({ children }: { children: ReactNode }) {
         className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
-          <Link to="/" className="flex items-center gap-2 group" aria-label="Braille Descomplicado — início">
+          <Link to={user ? "/" : "/cela"} className="flex items-center gap-2 group" aria-label="Braille Descomplicado — início">
             <span
               aria-hidden
               className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary/70 shadow-[var(--shadow-soft)]"
@@ -53,12 +53,16 @@ export function Layout({ children }: { children: ReactNode }) {
             </span>
           </Link>
           <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex">
-            <NavLink to="/" end className={({ isActive }) => navClass(isActive)}>
-              Início
-            </NavLink>
-            <NavLink to="/sumario" className={({ isActive }) => navClass(isActive)}>
-              Sumário
-            </NavLink>
+            {user && (
+              <>
+                <NavLink to="/" end className={({ isActive }) => navClass(isActive)}>
+                  Início
+                </NavLink>
+                <NavLink to="/sumario" className={({ isActive }) => navClass(isActive)}>
+                  Sumário
+                </NavLink>
+              </>
+            )}
             <NavLink to="/cela" className={({ isActive }) => navClass(isActive)}>
               Cela interativa
             </NavLink>
