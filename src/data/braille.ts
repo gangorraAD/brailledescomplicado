@@ -33,7 +33,7 @@ export const maskToUnicode = (mask: DotMask): string =>
   String.fromCharCode(0x2800 + mask);
 
 // Letras (Grade 1, base + acentuadas comuns em PT-BR)
-const letterDefs: Array<{ letter: string; dots: number[]; series: 1 | 2 | 3 | 4 | 5 | 6 | 7 }> = [
+const letterDefs: Array<{ letter: string; dots: number[]; series: 1 | 2 | 3 | 4 | 5 | 6 | 7; speech?: string }> = [
   // 1ª série (a-j)
   { letter: "a", dots: [1], series: 1 },
   { letter: "b", dots: [1, 2], series: 1 },
@@ -69,7 +69,7 @@ const letterDefs: Array<{ letter: string; dots: number[]; series: 1 | 2 | 3 | 4 
   { letter: "â", dots: [1, 6], series: 4 },
   { letter: "ê", dots: [1, 2, 6], series: 4 },
   { letter: "ì", dots: [1, 4, 6], series: 4 },
-  { letter: "è", dots: [2, 3, 4, 6], series: 4 },
+  { letter: "è", dots: [2, 3, 4, 6], series: 4, speech: "letra e com acento grave" },
   { letter: "ô", dots: [1, 4, 5, 6], series: 4 },
   { letter: "ù", dots: [1, 5, 6], series: 4 },
   { letter: "ñ", dots: [1, 2, 4, 5, 6], series: 4 },
@@ -147,7 +147,7 @@ for (const def of letterDefs) {
     series: def.series,
     description: `Letra ${def.letter.toUpperCase()} — pontos ${def.dots.join(", ")}`,
     symbol: def.letter,
-    speech: `letra ${def.letter}`,
+    speech: def.speech ?? `letra ${def.letter}`,
     number: numberMap[def.letter],
   });
 }
