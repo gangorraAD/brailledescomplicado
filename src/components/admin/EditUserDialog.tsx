@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Profile } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -54,14 +54,15 @@ export function EditUserDialog({ open, onOpenChange, user, onSaved }: Props) {
   const [newPassword, setNewPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
-  // Reset state when dialog opens with a new user
-  const userId = user?.id;
-  if (open && user && email === "" && name === "" && userId) {
-    setName(user.name ?? "");
-    setNickname(user.nickname ?? "");
-    setEmail(user.email ?? "");
-    setPhone(user.phone ?? "");
-  }
+  useEffect(() => {
+    if (open && user) {
+      setName(user.name ?? "");
+      setNickname(user.nickname ?? "");
+      setEmail(user.email ?? "");
+      setPhone(user.phone ?? "");
+      setNewPassword("");
+    }
+  }, [open, user]);
 
   const close = () => {
     setName("");
