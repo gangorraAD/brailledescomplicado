@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "@/hooks/use-toast";
 
 const signupSchema = z.object({
@@ -30,6 +31,9 @@ export default function Auth() {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
+  const [forgotOpen, setForgotOpen] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotBusy, setForgotBusy] = useState(false);
 
   if (!loading && user) return <Navigate to="/" replace />;
 
@@ -79,6 +83,27 @@ export default function Auth() {
     navigate("/");
   };
 
+  const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const email = forgotEmail.trim();
+    if (!z.string().email().safeParse(email).success) {
+      toast({ title: "Email inválido", description: "Informe um email válido.", variant: "destructive" });
+      return;
+    }
+    setForgotBusy(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setForgotBusy(false);
+    if (error) {
+      toast({ title: "Erro", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: "Email enviado", description: "Verifique sua caixa de entrada para redefinir a senha." });
+    setForgotOpen(false);
+    setForgotEmail("");
+  };
+
   return (
     <div className="mx-auto max-w-md py-10">
       <h1 className="mb-6 text-3xl font-bold text-primary">Entre na oficina</h1>
@@ -106,6 +131,41 @@ export default function Auth() {
             <Button type="submit" className="w-full" disabled={busy}>
               {busy ? "Entrando..." : "Entrar"}
             </Button>
+            <div className="text-center">
+              <Dialog open={forgotOpen} onOpenChange={setForgotOpen}>
+                <DialogTrigger asChild>
+                  <Button type="button" variant="link" className="text-sm">
+                    Esqueci a senha
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Redefinir senha</DialogTitle>
+                    <DialogDescription>
+                      Informe seu email e enviaremos um link para você criar uma nova senha.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleForgotPassword} className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="forgot-email">Email</Label>
+                      <Input
+                        id="forgot-email"
+                        type="email"
+                        autoComplete="email"
+                        value={forgotEmail}
+                        onChange={(e) => setForgotEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <DialogFooter>
+                      <Button type="submit" disabled={forgotBusy} className="w-full">
+                        {forgotBusy ? "Enviando..." : "Enviar link de redefinição"}
+                      </Button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            </div>
           </form>
         </TabsContent>
 
