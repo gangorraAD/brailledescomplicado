@@ -173,10 +173,13 @@ export function UsersPanel() {
                       </a>
                     </Button>
                     {wa && (
-                      <Button asChild size="icon" variant="ghost" title="WhatsApp">
-                        <a href={wa} target="_blank" rel="noreferrer">
-                          <MessageCircle className="h-4 w-4" />
-                        </a>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        title="WhatsApp"
+                        onClick={() => window.open(wa, "_blank", "noopener,noreferrer")}
+                      >
+                        <MessageCircle className="h-4 w-4" />
                       </Button>
                     )}
                     <Button
