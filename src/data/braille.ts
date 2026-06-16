@@ -69,7 +69,7 @@ const letterDefs: Array<{ letter: string; dots: number[]; series: 1 | 2 | 3 | 4 
   { letter: "â", dots: [1, 6], series: 4 },
   { letter: "ê", dots: [1, 2, 6], series: 4 },
   { letter: "ì", dots: [1, 4, 6], series: 4 },
-  { letter: "è", dots: [2, 3, 4, 6], series: 4, speech: "letra è" },
+  { letter: "è", dots: [2, 3, 4, 6], series: 4, speech: "Letra E com acento grave" },
   { letter: "ô", dots: [1, 4, 5, 6], series: 4 },
   { letter: "ù", dots: [1, 5, 6], series: 4 },
   { letter: "ñ", dots: [1, 2, 4, 5, 6], series: 4 },
