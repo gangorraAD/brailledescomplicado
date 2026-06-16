@@ -7,6 +7,7 @@ import { Layout } from "@/components/Layout";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Auth from "./pages/Auth.tsx";
+import ResetPassword from "./pages/ResetPassword.tsx";
 import Admin from "./pages/Admin.tsx";
 import Index from "./pages/Index.tsx";
 import Chapter from "./pages/Chapter.tsx";
@@ -27,6 +28,7 @@ const App = () => (
           <Layout>
             <Routes>
               <Route path="/auth" element={<Auth />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/admin" element={<ProtectedRoute adminOnly><Admin /></ProtectedRoute>} />
               <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
               <Route path="/sumario" element={<ProtectedRoute><Sumario /></ProtectedRoute>} />
