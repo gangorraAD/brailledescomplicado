@@ -147,7 +147,7 @@ for (const def of letterDefs) {
     series: def.series,
     description: `Letra ${def.letter.toUpperCase()} — pontos ${def.dots.join(", ")}`,
     symbol: def.letter,
-    speech: `letra ${def.letter}`,
+    speech: def.speech ?? `letra ${def.letter}`,
     number: numberMap[def.letter],
   });
 }
