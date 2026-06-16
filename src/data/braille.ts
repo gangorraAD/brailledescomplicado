@@ -72,7 +72,7 @@ const letterDefs: Array<{ letter: string; dots: number[]; series: 1 | 2 | 3 | 4 
   { letter: "è", dots: [2, 3, 4, 6], series: 4, speech: "Letra E com acento grave" },
   { letter: "ô", dots: [1, 4, 5, 6], series: 4 },
   { letter: "ù", dots: [1, 5, 6], series: 4, speech: "letra ù com acento grave" },
-  { letter: "ñ", dots: [1, 2, 4, 5, 6], series: 4 },
+  { letter: "ñ", dots: [1, 2, 4, 5, 6], series: 4, speech: "letra ñ com acento til" },
   // 5ª série (vogais com til/agudo selecionadas)
   { letter: "á", dots: [1, 2, 3, 5, 6], series: 5 },
   { letter: "é", dots: [1, 2, 3, 4, 5, 6], series: 5 },
