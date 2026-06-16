@@ -12,6 +12,12 @@ export interface BrailleSign {
   number?: string; // dígito quando precedido pelo indicador numérico
   description: string; // descrição acessível
   series?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  /** símbolo visível (ex.: ".", ":", "÷"). Quando ausente, usar letter ou unicode. */
+  symbol?: string;
+  /** texto exato falado pelo TTS — fonte única de verdade para áudio. */
+  speech?: string;
+  /** significado matemático adicional, quando o sinal acumula dois usos. */
+  mathMeaning?: string;
 }
 
 export const dotsToMask = (dots: number[]): DotMask =>
@@ -59,12 +65,13 @@ const letterDefs: Array<{ letter: string; dots: number[]; series: 1 | 2 | 3 | 4 
   { letter: "ç", dots: [1, 2, 3, 4, 6], series: 3 },
   // w (exceção) — pontos 2,4,5,6
   { letter: "w", dots: [2, 4, 5, 6], series: 3 },
-  // 4ª série (vogais acentuadas) — formada pela 1ª + ponto 6
+  // 4ª série (vogais com acento) — formada pela 1ª + ponto 6
   { letter: "â", dots: [1, 6], series: 4 },
   { letter: "ê", dots: [1, 2, 6], series: 4 },
-  { letter: "î", dots: [1, 4, 6], series: 4 },
+  { letter: "ì", dots: [1, 4, 6], series: 4 },
   { letter: "ô", dots: [1, 4, 5, 6], series: 4 },
-  { letter: "û", dots: [1, 5, 6], series: 4 },
+  { letter: "ù", dots: [1, 5, 6], series: 4 },
+  { letter: "ñ", dots: [1, 2, 4, 5, 6], series: 4 },
   // 5ª série (vogais com til/agudo selecionadas)
   { letter: "á", dots: [1, 2, 3, 5, 6], series: 5 },
   { letter: "é", dots: [1, 2, 3, 4, 5, 6], series: 5 },
@@ -84,20 +91,37 @@ const numberMap: Record<string, string> = {
 };
 
 // Símbolos especiais e pontuação comuns
-const specialDefs: Array<{ dots: number[]; description: string }> = [
-  { dots: [], description: "Cela vazia (espaço)" },
-  { dots: [3, 4, 5, 6], description: "Indicador de número" },
-  { dots: [4, 6], description: "Indicador de maiúscula" },
-  { dots: [2], description: "Vírgula" },
-  { dots: [2, 5, 6], description: "Ponto final" },
-  { dots: [2, 3], description: "Ponto e vírgula" },
-  { dots: [2, 5], description: "Dois pontos" },
-  { dots: [2, 3, 5], description: "Ponto de interrogação" },
-  { dots: [2, 3, 5, 6], description: "Ponto de exclamação" },
-  { dots: [3, 6], description: "Hífen" },
-  { dots: [5], description: "Apóstrofo / acento" },
-  { dots: [6], description: "Sinal de reforço" },
-  { dots: [1, 2, 3, 4, 5, 6], description: "Símbolo gerador (cela cheia)" },
+// Fonte única de verdade para pontuação, modificadores e símbolos matemáticos.
+// Conforme Grafia Braille para a Língua Portuguesa e Código Matemático Unificado (CMU).
+const specialDefs: Array<{
+  dots: number[];
+  description: string;
+  symbol?: string;
+  speech?: string;
+  mathMeaning?: string;
+}> = [
+  { dots: [], description: "Cela vazia (espaço)", symbol: " ", speech: "espaço" },
+  { dots: [3, 4, 5, 6], description: "Indicador de número", symbol: "#", speech: "indicador de número" },
+  { dots: [4, 6], description: "Indicador de maiúscula", symbol: "⠠", speech: "indicador de maiúscula" },
+  { dots: [2], description: "Vírgula", symbol: ",", speech: "vírgula" },
+  // Pontuação (Grafia Braille PT)
+  { dots: [3], description: "Ponto final", symbol: ".", speech: "ponto final" },
+  { dots: [2, 3], description: "Ponto e vírgula", symbol: ";", speech: "ponto e vírgula" },
+  { dots: [2, 5], description: "Dois pontos", symbol: ":", speech: "dois pontos" },
+  { dots: [2, 6], description: "Ponto de interrogação", symbol: "?", speech: "ponto de interrogação" },
+  { dots: [2, 3, 5], description: "Ponto de exclamação / Adição", symbol: "!", speech: "ponto de exclamação; em matemática, adição", mathMeaning: "+" },
+  { dots: [2, 3, 6], description: "Aspas / Multiplicação", symbol: "\u201C", speech: "aspas; em matemática, multiplicação", mathMeaning: "×" },
+  { dots: [3, 6], description: "Hífen / Subtração", symbol: "-", speech: "hífen; em matemática, subtração", mathMeaning: "−" },
+  { dots: [5], description: "Apóstrofo / acento", symbol: "'", speech: "apóstrofo" },
+  // Operadores e símbolos do CMU
+  { dots: [2, 5, 6], description: "Divisão", symbol: "÷", speech: "divisão" },
+  { dots: [2, 3, 5, 6], description: "Igualdade", symbol: "=", speech: "igualdade" },
+  { dots: [3, 5], description: "Asterisco", symbol: "*", speech: "asterisco" },
+  { dots: [3, 5, 6], description: "Grau", symbol: "°", speech: "grau" },
+  { dots: [5, 6], description: "Cifrão", symbol: "$", speech: "cifrão" },
+  // Modificador isolado: ponto 6 não tem símbolo atribuído como sinal isolado;
+  // é usado apenas em combinações (acentos, indicador de maiúscula etc.).
+  { dots: [6], description: "Ponto 6 — modificador usado em combinações", speech: "ponto seis" },
 ];
 
 // Construir o mapa completo dos 64 sinais
@@ -121,15 +145,30 @@ for (const def of letterDefs) {
     letter: def.letter,
     series: def.series,
     description: `Letra ${def.letter.toUpperCase()} — pontos ${def.dots.join(", ")}`,
+    symbol: def.letter,
+    speech: def.letter,
     number: numberMap[def.letter],
   });
 }
 
-// Aplicar especiais (sobrescreve descrição quando aplicável)
+// Aplicar especiais — sobrescrevem descrição/símbolo/fala quando o sinal
+// representa pontuação ou operador no padrão adotado (Grafia Braille PT + CMU).
+// Exceção: 1-2-3-4-5-6 (cela cheia) permanece como letra "é".
 for (const sp of specialDefs) {
   const mask = dotsToMask(sp.dots);
+  if (mask === 0b111111) continue; // preservar "é" para cela cheia
   const existing = map.get(mask)!;
-  map.set(mask, { ...existing, description: sp.description });
+  map.set(mask, {
+    ...existing,
+    description: sp.description,
+    symbol: sp.symbol ?? existing.symbol,
+    speech: sp.speech ?? existing.speech,
+    mathMeaning: sp.mathMeaning,
+    // remover associação de letra para combinações puramente simbólicas
+    letter: undefined,
+    number: undefined,
+    series: undefined,
+  });
 }
 
 export const brailleMap = map;
@@ -143,3 +182,11 @@ export const ALL_SIGNS: BrailleSign[] = Array.from(map.values()).sort((a, b) => 
 export const FIRST_SERIES = ALL_SIGNS.filter((s) => s.series === 1);
 export const SECOND_SERIES = ALL_SIGNS.filter((s) => s.series === 2);
 export const THIRD_SERIES = ALL_SIGNS.filter((s) => s.series === 3);
+
+/** Texto único usado pelo TTS e pelo leitor de tela. */
+export function speechFor(sign: BrailleSign): string {
+  if (sign.speech) return sign.speech;
+  if (sign.letter) return `letra ${sign.letter}`;
+  if (sign.dots.length === 0) return "cela vazia";
+  return `pontos ${sign.dots.join(", ")}`;
+}
