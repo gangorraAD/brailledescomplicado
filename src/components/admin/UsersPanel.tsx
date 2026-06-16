@@ -13,7 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Mail, MessageCircle, Check, X, Trash2 } from "lucide-react";
+import { Mail, MessageCircle, Check, X, Trash2, Pencil } from "lucide-react";
+import { EditUserDialog } from "./EditUserDialog";
 
 type Row = Profile & { roles: string[] };
 
@@ -29,6 +30,8 @@ export function UsersPanel() {
   const [busy, setBusy] = useState(false);
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<"all" | "pending" | "approved">("all");
+  const [editing, setEditing] = useState<Profile | null>(null);
+  const [editOpen, setEditOpen] = useState(false);
 
   const load = async () => {
     setBusy(true);
@@ -153,6 +156,17 @@ export function UsersPanel() {
                     {new Date(r.created_at).toLocaleDateString("pt-BR")}
                   </TableCell>
                   <TableCell className="space-x-1 whitespace-nowrap text-right">
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      title="Editar"
+                      onClick={() => {
+                        setEditing(r);
+                        setEditOpen(true);
+                      }}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>
                     <Button asChild size="icon" variant="ghost" title="Enviar email">
                       <a href={`mailto:${r.email}`}>
                         <Mail className="h-4 w-4" />
@@ -196,6 +210,12 @@ export function UsersPanel() {
         </Table>
       </div>
       {busy && <p className="text-sm text-muted-foreground">Atualizando...</p>}
+      <EditUserDialog
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        user={editing}
+        onSaved={load}
+      />
     </div>
   );
 }
