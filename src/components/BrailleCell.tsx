@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { lookupSign, dotsToMask, maskToUnicode, ALL_SIGNS } from "@/data/braille";
+import { lookupSign, dotsToMask, maskToUnicode, ALL_SIGNS, speechFor } from "@/data/braille";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -20,10 +20,12 @@ export function BrailleCell({ size = "lg" }: Props) {
   const [target, setTarget] = useState<{ letter: string; mask: number } | null>(null);
   const [feedback, setFeedback] = useState<string>("");
   const [score, setScore] = useState({ acertos: 0, total: 0 });
+  const [speakOn, setSpeakOn] = useState<boolean>(true);
   const liveRef = useRef<HTMLDivElement>(null);
 
   const mask = useMemo(() => dotsToMask(Array.from(active)), [active]);
   const sign = lookupSign(mask);
+  const spoken = useMemo(() => speechFor(sign), [sign]);
 
   const toggle = (dot: number) => {
     setActive((prev) => {
@@ -63,12 +65,33 @@ export function BrailleCell({ size = "lg" }: Props) {
     }
   }, [mask, target]);
 
-  // Anuncia mudança para leitor de tela
+  // Anuncia mudança para leitor de tela + síntese de voz (mesma fonte de verdade)
   useEffect(() => {
     if (liveRef.current) {
       liveRef.current.textContent = sign.description;
     }
-  }, [sign]);
+    // Log para validação de testes
+    // eslint-disable-next-line no-console
+    console.debug("[BrailleCell]", {
+      dots: sign.dots,
+      mask: sign.mask,
+      symbol: sign.symbol,
+      letter: sign.letter,
+      speech: spoken,
+    });
+    if (!speakOn) return;
+    if (mask === 0) return;
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(spoken);
+      u.lang = "pt-BR";
+      u.rate = 0.95;
+      window.speechSynthesis.speak(u);
+    } catch {
+      /* noop */
+    }
+  }, [sign, spoken, speakOn, mask]);
 
   const handleKey = (e: React.KeyboardEvent, dot: number) => {
     if (e.key === " " || e.key === "Enter") {
@@ -105,6 +128,15 @@ export function BrailleCell({ size = "lg" }: Props) {
               {m === "livre" ? "Modo livre" : m === "treino" ? "Modo treino" : "Desafio"}
             </Button>
           ))}
+          <Button
+            variant={speakOn ? "default" : "outline"}
+            size="sm"
+            onClick={() => setSpeakOn((v) => !v)}
+            aria-pressed={speakOn}
+            aria-label={speakOn ? "Desligar voz" : "Ligar voz"}
+          >
+            {speakOn ? "Voz: ligada" : "Voz: desligada"}
+          </Button>
         </div>
       </header>
 
@@ -154,13 +186,20 @@ export function BrailleCell({ size = "lg" }: Props) {
         <div className="space-y-3">
           <div className="rounded-xl border border-border bg-background p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">Símbolo</p>
-            <p
-              aria-hidden
-              className="font-mono text-6xl leading-none text-primary"
-              style={{ fontFamily: "'Apple Symbols', 'Segoe UI Symbol', monospace" }}
-            >
-              {maskToUnicode(mask)}
-            </p>
+            <div className="flex items-baseline gap-4">
+              <p
+                aria-hidden
+                className="font-mono text-6xl leading-none text-primary"
+                style={{ fontFamily: "'Apple Symbols', 'Segoe UI Symbol', monospace" }}
+              >
+                {maskToUnicode(mask)}
+              </p>
+              {sign.symbol && (
+                <p aria-hidden className="text-3xl font-semibold text-foreground">
+                  {sign.symbol}
+                </p>
+              )}
+            </div>
           </div>
           <dl className="grid grid-cols-2 gap-3 text-sm">
             <div className="rounded-lg bg-secondary/60 p-3">
@@ -168,20 +207,23 @@ export function BrailleCell({ size = "lg" }: Props) {
               <dd className="font-medium">{sign.dots.length ? sign.dots.join(", ") : "—"}</dd>
             </div>
             <div className="rounded-lg bg-secondary/60 p-3">
-              <dt className="text-xs text-muted-foreground">Letra</dt>
-              <dd className="font-medium uppercase">{sign.letter ?? "—"}</dd>
+              <dt className="text-xs text-muted-foreground">Letra/Símbolo</dt>
+              <dd className="font-medium">{sign.letter?.toUpperCase() ?? sign.symbol ?? "—"}</dd>
             </div>
             <div className="rounded-lg bg-secondary/60 p-3">
               <dt className="text-xs text-muted-foreground">Número</dt>
               <dd className="font-medium">{sign.number ?? "—"}</dd>
             </div>
             <div className="rounded-lg bg-secondary/60 p-3">
-              <dt className="text-xs text-muted-foreground">Série</dt>
-              <dd className="font-medium">{sign.series ?? "—"}</dd>
+              <dt className="text-xs text-muted-foreground">{sign.mathMeaning ? "Matemática" : "Série"}</dt>
+              <dd className="font-medium">{sign.mathMeaning ?? sign.series ?? "—"}</dd>
             </div>
           </dl>
           <p className="rounded-lg bg-accent/40 p-3 text-sm text-accent-foreground">
             {sign.description}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Falado: <span className="font-medium">{spoken}</span>
           </p>
 
           {target && (
