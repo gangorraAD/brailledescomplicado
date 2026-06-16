@@ -22,6 +22,40 @@ export function BrailleCell({ size = "lg" }: Props) {
   const [score, setScore] = useState({ acertos: 0, total: 0 });
   const [speakOn, setSpeakOn] = useState<boolean>(true);
   const liveRef = useRef<HTMLDivElement>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const wrongPlayedRef = useRef<number>(-1);
+
+  const getAudioCtx = () => {
+    if (typeof window === "undefined") return null;
+    if (!audioCtxRef.current) {
+      const Ctx = (window.AudioContext || (window as any).webkitAudioContext) as typeof AudioContext | undefined;
+      if (!Ctx) return null;
+      audioCtxRef.current = new Ctx();
+    }
+    return audioCtxRef.current;
+  };
+
+  const playTone = (freqs: number[], duration = 0.18, type: OscillatorType = "sine") => {
+    const ctx = getAudioCtx();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    freqs.forEach((f, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = f;
+      const start = now + i * duration * 0.9;
+      gain.gain.setValueAtTime(0.0001, start);
+      gain.gain.exponentialRampToValueAtTime(0.25, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + duration + 0.02);
+    });
+  };
+
+  const playCorrect = () => playTone([659.25, 987.77], 0.18, "triangle"); // E5 → B5
+  const playWrong = () => playTone([196, 155.56], 0.22, "sawtooth"); // G3 → Eb3
 
   const mask = useMemo(() => dotsToMask(Array.from(active)), [active]);
   const sign = lookupSign(mask);
@@ -60,8 +94,18 @@ export function BrailleCell({ size = "lg" }: Props) {
     if (mask === target.mask) {
       setFeedback(`Correto! Você formou a letra "${target.letter.toUpperCase()}".`);
       setScore((s) => ({ acertos: s.acertos + 1, total: s.total + 1 }));
+      playCorrect();
+      wrongPlayedRef.current = -1;
       const t = setTimeout(pickTarget, 1200);
       return () => clearTimeout(t);
+    }
+    // Errou: dots iguais ou superiores ao alvo, mas máscara diferente
+    if (active.size >= target.mask.toString(2).split("1").length - 1) {
+      if (wrongPlayedRef.current !== mask) {
+        wrongPlayedRef.current = mask;
+        playWrong();
+        setFeedback(`Ainda não. Continue tentando formar "${target.letter.toUpperCase()}".`);
+      }
     }
   }, [mask, target]);
 
@@ -215,8 +259,8 @@ export function BrailleCell({ size = "lg" }: Props) {
               <dd className="font-medium">{sign.number ?? "—"}</dd>
             </div>
             <div className="rounded-lg bg-secondary/60 p-3">
-              <dt className="text-xs text-muted-foreground">{sign.mathMeaning ? "Matemática" : "Série"}</dt>
-              <dd className="font-medium">{sign.mathMeaning ?? sign.series ?? "—"}</dd>
+              <dt className="text-xs text-muted-foreground">Matemática</dt>
+              <dd className="font-medium">{sign.mathMeaning ?? "—"}</dd>
             </div>
           </dl>
           <p className="rounded-lg bg-accent/40 p-3 text-sm text-accent-foreground">
