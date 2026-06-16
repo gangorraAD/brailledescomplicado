@@ -8,7 +8,7 @@ export function ProtectedRoute({ children, adminOnly = false }: { children: Reac
   if (loading) {
     return <p className="py-10 text-center text-muted-foreground">Carregando...</p>;
   }
-  if (!user) return <Navigate to={adminOnly ? "/auth" : "/cela"} replace />;
+  if (!user) return <Navigate to="/auth" replace />;
   if (adminOnly && !isAdmin) return <Navigate to="/" replace />;
   if (!isAdmin && !profile?.approved) return <PendingApproval />;
   return <>{children}</>;
