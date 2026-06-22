@@ -433,16 +433,6 @@ const Autora = () => {
                 Quero informações sobre o curso de Braille
               </a>
             </Button>
-            <Button asChild size="lg" variant="ghost">
-              <Link to="/cela">
-                <Hand /> Experimentar a cela interativa <ArrowRight />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="ghost">
-              <Link to="/oficina">
-                <BookOpen /> Entrar na Oficina Braille Descomplicado
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
