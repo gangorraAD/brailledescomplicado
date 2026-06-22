@@ -35,7 +35,7 @@ const Autora = () => {
             Luciane Molina
           </h1>
           <p className="mt-3 text-xl font-medium text-foreground/90 md:text-2xl">
-            Mentoria em Sistema Braille, tecnologia assistiva e acessibilidade na educação
+            Mentoria educacional e curso em Sistema Braille, tecnologia assistiva e acessibilidade para educação e EAD
           </p>
           <p className="mt-4 text-lg italic text-muted-foreground">
             Apoio escolas, universidades, professores e produtores de cursos a eliminarem barreiras
@@ -59,7 +59,7 @@ const Autora = () => {
         <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-accent/40 blur-3xl" />
       </section>
 
-      {/* Sobre a autora */}
+      {/* Sobre a autora — texto transcrito do site braillumais.lovable.app */}
       <section aria-labelledby="sobre-title" className="mt-12 grid gap-8 md:grid-cols-[260px_1fr] md:items-start">
         <div
           aria-hidden
@@ -67,62 +67,39 @@ const Autora = () => {
         />
         <div>
           <h2 id="sobre-title" className="text-2xl font-bold text-primary md:text-3xl">
-            Sobre a autora
+            Luciane Molina
           </h2>
+          <p className="mt-2 text-base font-medium text-foreground/80 md:text-lg">
+            Doutora e Mestra em Educação · Mentora em Braille, tecnologia assistiva e acessibilidade educacional
+          </p>
           <p className="mt-4 text-base leading-relaxed text-foreground/90 md:text-lg">
-            Luciane Molina é educadora dedicada ao Sistema Braille, à tecnologia assistiva e à acessibilidade na
-            educação. Atua na formação de professores e na consultoria pedagógica para escolas, universidades e
-            produtores de cursos EAD, garantindo que estudantes com deficiência visual aprendam com autonomia,
-            participação e equidade — da educação básica ao ensino superior.
+            Meu trabalho nasce do encontro entre vivência, pesquisa e prática pedagógica.
           </p>
-          <p className="mt-3 text-base leading-relaxed text-muted-foreground md:text-lg">
-            Sob a marca <strong className="text-primary">BRAILLU MAIS</strong>, desenvolve mentorias, materiais e
-            oficinas que colocam o Braille no centro das decisões pedagógicas — não como complemento, mas como
-            ponto de partida para um ensino verdadeiramente acessível.
+          <p className="mt-3 text-base leading-relaxed text-foreground/90 md:text-lg">
+            Sou uma pessoa com deficiência visual e atuo com Sistema Braille, tecnologia assistiva, audiodescrição e
+            acessibilidade educacional a partir de uma experiência concreta com a cegueira e de uma trajetória dedicada
+            à formação de professores, à análise de materiais didáticos e à curadoria de acessibilidade para educação
+            presencial e a distância.
           </p>
-        </div>
-      </section>
-
-      {/* Atuação */}
-      <section aria-labelledby="atuacao-title" className="mt-14">
-        <h2 id="atuacao-title" className="text-2xl font-bold text-primary md:text-3xl">
-          O que faço
-        </h2>
-        <p className="mt-2 text-muted-foreground">
-          Atuação multiplicadora para tornar a educação acessível desde o planejamento.
-        </p>
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {[
-            {
-              icon: GraduationCap,
-              title: "Mentoria e formação docente",
-              text: "Acompanhamento de professores e equipes pedagógicas para integrar o Braille à prática diária.",
-            },
-            {
-              icon: Accessibility,
-              title: "Acessibilidade em EAD",
-              text: "Consultoria para produtores de cursos online tornarem materiais e plataformas acessíveis a estudantes cegos.",
-            },
-            {
-              icon: BookOpen,
-              title: "Sistema Braille no planejamento",
-              text: "O Braille como decisão pedagógica desde o início — não como adaptação tardia.",
-            },
-            {
-              icon: Hand,
-              title: "Tecnologia assistiva",
-              text: "Escolha e uso consciente de recursos que ampliam — e não substituem — a leitura e a escrita.",
-            },
-          ].map(({ icon: Icon, title, text }) => (
-            <article
-              key={title}
-              className="rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-[var(--shadow-soft)]"
+          <p className="mt-3 text-base leading-relaxed text-foreground/90 md:text-lg">
+            Ao longo dos anos, acompanhei de perto as dificuldades de escolas, universidades e educadores que desejam
+            incluir, mas não encontram orientação específica sobre como ensinar Braille, como articular seu uso com a
+            tecnologia assistiva e como produzir materiais realmente utilizáveis por estudantes cegos.
+          </p>
+          <p className="mt-3 text-base leading-relaxed text-foreground/90 md:text-lg">
+            Essa atuação é sustentada por produção acadêmica, participação em pesquisas, publicações, formações e
+            projetos voltados à educação inclusiva e à acessibilidade para pessoas com deficiência visual.
+          </p>
+          <div className="mt-4">
+            <a
+              href="http://lattes.cnpq.br/5778300198160920"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-primary underline underline-offset-4 hover:text-primary/80"
             >
-              <Icon className="h-6 w-6 text-primary" aria-hidden />
-              <h3 className="mt-3 text-lg font-semibold text-foreground">{title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{text}</p>
-            </article>
-          ))}
+              Ver currículo completo no Lattes
+            </a>
+          </div>
         </div>
       </section>
 
@@ -157,31 +134,11 @@ const Autora = () => {
         </div>
       </section>
 
-      {/* Contato */}
-      <section aria-labelledby="contato-title" className="mt-14 mb-4">
-        <h2 id="contato-title" className="text-2xl font-bold text-primary md:text-3xl">
-          Vamos conversar
-        </h2>
-        <p className="mt-2 text-muted-foreground">
-          Quer tornar sua prática pedagógica acessível? Fale comigo.
+      {/* Placeholder — aguardando conteúdo exato do usuário */}
+      <section className="mt-14 mb-4 rounded-2xl border border-dashed border-border bg-muted/40 p-8 text-center">
+        <p className="text-sm font-medium text-muted-foreground">
+          Aguardando conteúdo adicional enviado pelo usuário.
         </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Button asChild>
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-              <MessageCircle /> WhatsApp
-            </a>
-          </Button>
-          <Button asChild variant="outline">
-            <a href="mailto:braillu@gmail.com">
-              <Mail /> braillu@gmail.com
-            </a>
-          </Button>
-          <Button asChild variant="outline">
-            <a href="https://instagram.com/braillu" target="_blank" rel="noreferrer">
-              <Instagram /> @braillu
-            </a>
-          </Button>
-        </div>
       </section>
     </div>
   );
