@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
-import { ArrowRight, BookOpen, GraduationCap, Accessibility, MessageCircle, Hand, Sparkles, Mail, Instagram } from "lucide-react";
+import { ArrowRight, BookOpen, MessageCircle, Hand, Sparkles } from "lucide-react";
 
 const WHATSAPP_URL =
   "https://wa.me/5512981020340?text=Ol%C3%A1%2C+vim+pela+sua+p%C3%A1gina+e+quero+tornar+meu+curso+acess%C3%ADvel+para+estudantes+cegos.";
