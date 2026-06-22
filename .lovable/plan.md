@@ -1,37 +1,74 @@
+
 ## Objetivo
 
-Sim, é totalmente possível. Hoje **toda** a aplicação exige login + aprovação. Vou transformar a **Cela Braille Interativa** em uma vitrine pública (sem login), mantendo todo o restante (e-book, capítulos, materiais, admin) atrás de login.
+Transformar a página inicial do site no **espaço autoral de Luciane Molina (BRAILLU MAIS)** e mover toda a experiência atual da "Oficina Braille Descomplicado" para uma aba/rota separada `/oficina`, mantendo o mesmo visual e tokens de design já existentes.
 
-## O que muda
+## Estrutura de rotas (depois da mudança)
 
-### 1. Rota pública
-- `/cela` deixa de usar `ProtectedRoute` em `src/App.tsx` — vira a única rota livre.
-- Demais rotas (`/`, `/sumario`, `/:slug`, `/materiais`, `/admin`) continuam exigindo login e aprovação como hoje.
+```
+/              → Página autoral "Luciane Molina | BRAILLU MAIS"  (nova home, pública)
+/oficina       → Antiga home da oficina (sumário/CTA, protegida — como hoje é "/")
+/sumario       → continua (sumário detalhado)
+/cela          → continua (Cela Braille Interativa)
+/materiais     → continua
+/:slug         → continua (capítulos)
+/auth, /admin, /reset-password → continuam
+```
 
-### 2. Página inicial pública
-- Visitante anônimo que acessar `/` é redirecionado para `/cela` em vez de `/auth`, para que a primeira impressão seja o recurso gratuito.
-- Em `/cela`, adiciono um bloco de chamada para visitantes não logados:
-  - Texto curto explicando que a oficina completa (e-book, capítulos, materiais, atividades) está disponível após cadastro.
-  - Botões "Criar conta gratuita" → `/auth` e "Entrar".
-- Para usuário já logado, esse bloco é substituído por um atalho "Ir para o Sumário".
+A rota `/` deixa de exigir login (página de apresentação pública). A página da oficina (com CTAs de continuar a leitura) passa para `/oficina` e segue protegida por login, como hoje.
 
-### 3. Cabeçalho / navegação
-- `Layout.tsx`: quando não há `user`, mostro apenas os links **Cela interativa** e **Entrar** (oculto Início, Sumário, Materiais).
-- Sidebar lateral e drawer mobile continuam aparecendo só para logados (já é o comportamento atual).
-- Logo no topo aponta para `/cela` quando deslogado, e para `/` quando logado.
+## Nova página: Luciane Molina | BRAILLU MAIS
 
-### 4. Página de cadastro
-- Em `src/pages/Auth.tsx`, ajusto o texto introdutório para deixar claro: "Cadastre-se para acessar o e-book completo, capítulos, vídeos e materiais da oficina. A Cela Interativa permanece gratuita."
+Arquivo novo `src/pages/Autora.tsx` (default na rota `/`). Seções:
 
-### 5. Sem mudanças de backend
-- Nenhuma alteração de banco, RLS ou storage. A Cela é 100% client-side, então liberar a rota basta. Materiais, perfis e papéis seguem protegidos como hoje.
+1. **Hero autoral** — título "Luciane Molina", sobretítulo "BRAILLU MAIS", uma linha de posicionamento ("Mentoria em Sistema Braille, tecnologia assistiva e acessibilidade na educação") e dois CTAs:
+   - Primário: "Entrar na Oficina Braille Descomplicado" → `/oficina`
+   - Secundário: "Falar pelo WhatsApp" → link `wa.me` (o mesmo do site BRAILLU MAIS)
+2. **Sobre a autora (bio)** — texto biográfico de Luciane Molina + foto (placeholder até o envio).
+3. **O que faço / atuação** — 3-4 cartões resumindo a atuação (mentoria, formação docente, acessibilidade em EAD, Braille no planejamento pedagógico), baseados no conteúdo de `braillumais.lovable.app`.
+4. **Destaque "Oficina Braille Descomplicado"** — bloco convidando a entrar na oficina (link para `/oficina`).
+5. **Contato** — WhatsApp + e-mail/redes (placeholders até o envio).
 
-## Arquivos afetados
-- `src/App.tsx` — remover `ProtectedRoute` de `/cela`; adicionar redirect `/` → `/cela` para anônimos (via wrapper leve ou ajuste no `ProtectedRoute`).
-- `src/pages/CelaPage.tsx` — bloco de CTA para visitantes não logados.
-- `src/components/Layout.tsx` — menu condicional e destino do logo.
-- `src/pages/Auth.tsx` — copy explicando o modelo gratuito + pago.
+Conteúdo será extraído de `https://braillumais.lovable.app/` (já consultado) e adaptado. O logo BRAILLU MAIS será adicionado quando você enviar (placeholder com o texto "BRAILLU+" no topo até lá).
 
-## Fora de escopo (confirmar depois se quiser)
-- Liberar trechos de capítulos no gratuito.
-- Página de "planos" ou checkout pago — o fluxo continua sendo aprovação manual pelo admin.
+## Ajustes na oficina (rota /oficina)
+
+- Mover o conteúdo atual de `src/pages/Index.tsx` para `src/pages/Oficina.tsx` (mesma página, sem mudanças de design — só renomear e re-rotear).
+- Atualizar o `localStorage["ultimaLeitura"]` e botões "Continue lendo" para seguirem funcionando dentro de `/oficina`.
+
+## Ajustes de navegação (`src/components/Layout.tsx`)
+
+- Logo do header → passa a linkar para `/` (página autoral).
+- Adicionar dois itens principais de navegação no header:
+  - **Autora** → `/`
+  - **Oficina** → `/oficina`
+- Demais links (Sumário, Cela, Materiais, Admin) continuam como hoje, visíveis conforme login/role.
+- Sidebar com capítulos só aparece nas rotas da oficina (já é condicionada a usuário logado; manter).
+
+## Ajustes de roteamento (`src/App.tsx`)
+
+- `/` → `<Autora />` (pública, sem `ProtectedRoute`).
+- `/oficina` → `<ProtectedRoute><Oficina /></ProtectedRoute>` (o que hoje é `/`).
+- Resto inalterado.
+
+## SEO
+
+- `<title>` da home: "Luciane Molina | BRAILLU MAIS — Braille, acessibilidade e educação".
+- Meta description curta sobre mentoria em Braille e acessibilidade.
+- Um único `<h1>` por página.
+
+## O que NÃO muda
+
+- Design system, cores, tipografia, componentes shadcn.
+- Toda a lógica da oficina, Cela Braille, Materiais, Admin, autenticação e Lovable Cloud.
+- Dados em `src/data/*` e `BrailleCell` (mantidos exatamente como estão).
+
+## Pendências de conteúdo (depois de implementar)
+
+Você ainda precisa enviar:
+- Logo oficial BRAILLU MAIS (PNG/SVG) — entra no hero e no header.
+- Foto da Luciane para a seção "Sobre a autora".
+- Texto final da bio, se quiser ajustar o rascunho extraído do site BRAILLU MAIS.
+- Links definitivos de contato/redes (WhatsApp, Instagram, LinkedIn, e-mail).
+
+Enquanto não chegam, entram placeholders com o conteúdo do site `braillumais.lovable.app` para você revisar visualmente.
