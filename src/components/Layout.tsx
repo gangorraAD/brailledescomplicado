@@ -41,7 +41,7 @@ export function Layout({ children }: { children: ReactNode }) {
         className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur"
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
-          <Link to={user ? "/" : "/cela"} className="flex items-center gap-2 group" aria-label="Braille Descomplicado — início">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="Luciane Molina — BRAILLU MAIS">
             <span
               aria-hidden
               className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-primary to-primary/70 shadow-[var(--shadow-soft)]"
@@ -49,14 +49,17 @@ export function Layout({ children }: { children: ReactNode }) {
               <BrailleLogo className="h-6 w-5" />
             </span>
             <span className="font-semibold tracking-tight text-primary">
-              Braille <span className="font-light text-foreground">Descomplicado</span>
+              Luciane Molina <span className="font-light text-foreground">| BRAILLU MAIS</span>
             </span>
           </Link>
           <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex">
+            <NavLink to="/" end className={({ isActive }) => navClass(isActive)}>
+              Autora
+            </NavLink>
             {user && (
               <>
-                <NavLink to="/" end className={({ isActive }) => navClass(isActive)}>
-                  Início
+                <NavLink to="/oficina" className={({ isActive }) => navClass(isActive)}>
+                  Oficina
                 </NavLink>
                 <NavLink to="/sumario" className={({ isActive }) => navClass(isActive)}>
                   Sumário
@@ -144,7 +147,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <footer role="contentinfo" className="border-t border-border bg-card/40">
         <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-muted-foreground">
           <p>
-            <strong className="text-primary">Braille Descomplicado</strong> — Luciane Molina · Braillu · Edição interativa 2026.
+            <strong className="text-primary">Luciane Molina | BRAILLU MAIS</strong> — Oficina Braille Descomplicado · Edição interativa 2026.
           </p>
           <p className="mt-1">
             Contato: <a className="underline hover:text-primary" href="mailto:braillu@gmail.com">braillu@gmail.com</a> ·{" "}
@@ -173,8 +176,8 @@ function SidebarNav() {
       </p>
       <ul className="space-y-1">
         <li>
-          <NavLink to="/" end className={({ isActive }) => sideClass(isActive)}>
-            Início
+          <NavLink to="/oficina" end className={({ isActive }) => sideClass(isActive)}>
+            Início da Oficina
           </NavLink>
         </li>
         <li>

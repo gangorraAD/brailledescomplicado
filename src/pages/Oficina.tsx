@@ -4,11 +4,11 @@ import { CHAPTERS } from "@/data/chapters";
 import { useEffect, useState } from "react";
 import { ArrowRight, BookOpen, Hand, Sparkles } from "lucide-react";
 
-const Index = () => {
+const Oficina = () => {
   const [last, setLast] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "Braille Descomplicado — Semeando Leitores e Escritores Competentes";
+    document.title = "Oficina Braille Descomplicado — Semeando Leitores e Escritores Competentes";
     try {
       setLast(localStorage.getItem("ultimaLeitura"));
     } catch {
@@ -40,7 +40,7 @@ const Index = () => {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg">
-              <Link to={`/${last ?? "abertura"}`}>
+              <Link to={last ? `/${last}` : "/abertura"}>
                 {last && last !== "abertura" ? "Continuar leitura" : "Começar leitura"} <ArrowRight />
               </Link>
             </Button>
@@ -95,4 +95,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Oficina;

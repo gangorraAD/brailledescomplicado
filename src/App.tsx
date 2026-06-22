@@ -9,7 +9,8 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Auth from "./pages/Auth.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import Admin from "./pages/Admin.tsx";
-import Index from "./pages/Index.tsx";
+import Autora from "./pages/Autora.tsx";
+import Oficina from "./pages/Oficina.tsx";
 import Chapter from "./pages/Chapter.tsx";
 import CelaPage from "./pages/CelaPage.tsx";
 import Sumario from "./pages/Sumario.tsx";
@@ -30,7 +31,8 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/admin" element={<ProtectedRoute adminOnly><Admin /></ProtectedRoute>} />
-              <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
+              <Route path="/" element={<Autora />} />
+              <Route path="/oficina" element={<ProtectedRoute><Oficina /></ProtectedRoute>} />
               <Route path="/sumario" element={<ProtectedRoute><Sumario /></ProtectedRoute>} />
               <Route path="/cela" element={<CelaPage />} />
               <Route path="/materiais" element={<ProtectedRoute><Materiais /></ProtectedRoute>} />
