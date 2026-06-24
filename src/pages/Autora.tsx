@@ -166,7 +166,7 @@ const Autora = () => {
         className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-secondary/40 via-background to-accent/40 p-8 md:p-14 shadow-[var(--shadow-elegant)]"
       >
         <SafeImg
-          src="https://braillu.com.br/img/braillu-logo.png"
+          src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/BRAILLU_LOGO.jpg"
           alt="Logo da Braillu+, com identidade em roxo, amarelo e laranja, pontos em Braille e a mensagem Multiplicando Ações Inclusivas."
           className="relative z-10 mb-6 h-20 w-auto md:h-24"
         />
