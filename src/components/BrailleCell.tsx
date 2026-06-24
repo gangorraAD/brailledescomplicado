@@ -24,6 +24,7 @@ export function BrailleCell({ size = "lg" }: Props) {
   const liveRef = useRef<HTMLDivElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const wrongPlayedRef = useRef<number>(-1);
+  const livrePlayedRef = useRef<number>(0);
 
   const getAudioCtx = () => {
     if (typeof window === "undefined") return null;
@@ -123,6 +124,15 @@ export function BrailleCell({ size = "lg" }: Props) {
       letter: sign.letter,
       speech: spoken,
     });
+    // Feedback sonoro no modo livre: positivo se a composição corresponde
+    // a um sinal conhecido (letra, número ou símbolo), negativo caso contrário.
+    if (mode === "livre" && mask !== 0 && livrePlayedRef.current !== mask) {
+      livrePlayedRef.current = mask;
+      const reconhecido = Boolean(sign.letter || sign.number || sign.symbol);
+      if (reconhecido) playCorrect();
+      else playWrong();
+    }
+    if (mask === 0) livrePlayedRef.current = 0;
     if (!speakOn) return;
     if (mask === 0) return;
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
