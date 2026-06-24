@@ -165,8 +165,8 @@ const Autora = () => {
         aria-labelledby="autora-hero-title"
         className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-secondary/40 via-background to-accent/40 p-8 md:p-14 shadow-[var(--shadow-elegant)]"
       >
-        <SafeImg
-          src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/BRAILLU_LOGO.jpg"
+        <img
+          src="/src/assets/logo-braillu-mais-transparente.png"
           alt="Logo da Braillu+, com identidade em roxo, amarelo e laranja, pontos em Braille e a mensagem Multiplicando Ações Inclusivas."
           className="relative z-10 mb-6 h-40 w-auto md:h-48"
         />
