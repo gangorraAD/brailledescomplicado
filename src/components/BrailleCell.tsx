@@ -60,7 +60,6 @@ export function BrailleCell({ size = "lg" }: Props) {
 
   const mask = useMemo(() => dotsToMask(Array.from(active)), [active]);
   const sign = lookupSign(mask);
-  const spoken = useMemo(() => speechFor(sign), [sign]);
 
   const toggle = (dot: number) => {
     setActive((prev) => {
