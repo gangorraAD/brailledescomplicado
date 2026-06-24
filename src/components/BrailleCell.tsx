@@ -253,9 +253,6 @@ export function BrailleCell({ size = "lg" }: Props) {
           <p className="rounded-lg bg-accent/40 p-3 text-sm text-accent-foreground">
             {sign.description}
           </p>
-          <p className="text-xs text-muted-foreground">
-            Falado: <span className="font-medium">{spoken}</span>
-          </p>
 
           {target && (
             <div className="rounded-xl border-2 border-primary/40 bg-primary/5 p-4">
