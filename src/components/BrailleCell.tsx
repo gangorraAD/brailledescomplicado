@@ -168,15 +168,6 @@ export function BrailleCell({ size = "lg" }: Props) {
               {m === "livre" ? "Modo livre" : m === "treino" ? "Modo treino" : "Desafio"}
             </Button>
           ))}
-          <Button
-            variant={speakOn ? "default" : "outline"}
-            size="sm"
-            onClick={() => setSpeakOn((v) => !v)}
-            aria-pressed={speakOn}
-            aria-label={speakOn ? "Desligar voz" : "Ligar voz"}
-          >
-            {speakOn ? "Voz: ligada" : "Voz: desligada"}
-          </Button>
         </div>
       </header>
 
