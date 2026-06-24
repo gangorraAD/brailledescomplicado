@@ -121,7 +121,6 @@ export function BrailleCell({ size = "lg" }: Props) {
       mask: sign.mask,
       symbol: sign.symbol,
       letter: sign.letter,
-      speech: spoken,
     });
     // Feedback sonoro no modo livre: positivo se a composição corresponde
     // a um sinal conhecido (letra, número ou símbolo), negativo caso contrário.
