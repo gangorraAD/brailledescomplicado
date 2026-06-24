@@ -131,19 +131,7 @@ export function BrailleCell({ size = "lg" }: Props) {
       else playWrong();
     }
     if (mask === 0) livrePlayedRef.current = 0;
-    if (!speakOn) return;
-    if (mask === 0) return;
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(spoken);
-      u.lang = "pt-BR";
-      u.rate = 0.95;
-      window.speechSynthesis.speak(u);
-    } catch {
-      /* noop */
-    }
-  }, [sign, spoken, speakOn, mask]);
+  }, [sign, mask]);
 
   const handleKey = (e: React.KeyboardEvent, dot: number) => {
     if (e.key === " " || e.key === "Enter") {
