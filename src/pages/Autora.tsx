@@ -168,7 +168,7 @@ const Autora = () => {
         <SafeImg
           src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/BRAILLU_LOGO.jpg"
           alt="Logo da Braillu+, com identidade em roxo, amarelo e laranja, pontos em Braille e a mensagem Multiplicando Ações Inclusivas."
-          className="relative z-10 mb-6 h-20 w-auto md:h-24"
+          className="relative z-10 mb-6 h-40 w-auto md:h-48"
         />
         <div className="relative z-10 max-w-3xl">
           <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
