@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { lookupSign, dotsToMask, maskToUnicode, ALL_SIGNS, speechFor } from "@/data/braille";
+import { lookupSign, dotsToMask, maskToUnicode, ALL_SIGNS } from "@/data/braille";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ export function BrailleCell({ size = "lg" }: Props) {
   const [target, setTarget] = useState<{ letter: string; mask: number } | null>(null);
   const [feedback, setFeedback] = useState<string>("");
   const [score, setScore] = useState({ acertos: 0, total: 0 });
-  const [speakOn, setSpeakOn] = useState<boolean>(true);
+  
   const liveRef = useRef<HTMLDivElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const wrongPlayedRef = useRef<number>(-1);
@@ -60,7 +60,6 @@ export function BrailleCell({ size = "lg" }: Props) {
 
   const mask = useMemo(() => dotsToMask(Array.from(active)), [active]);
   const sign = lookupSign(mask);
-  const spoken = useMemo(() => speechFor(sign), [sign]);
 
   const toggle = (dot: number) => {
     setActive((prev) => {
@@ -122,7 +121,6 @@ export function BrailleCell({ size = "lg" }: Props) {
       mask: sign.mask,
       symbol: sign.symbol,
       letter: sign.letter,
-      speech: spoken,
     });
     // Feedback sonoro no modo livre: positivo se a composição corresponde
     // a um sinal conhecido (letra, número ou símbolo), negativo caso contrário.
@@ -133,19 +131,7 @@ export function BrailleCell({ size = "lg" }: Props) {
       else playWrong();
     }
     if (mask === 0) livrePlayedRef.current = 0;
-    if (!speakOn) return;
-    if (mask === 0) return;
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    try {
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(spoken);
-      u.lang = "pt-BR";
-      u.rate = 0.95;
-      window.speechSynthesis.speak(u);
-    } catch {
-      /* noop */
-    }
-  }, [sign, spoken, speakOn, mask]);
+  }, [sign, mask]);
 
   const handleKey = (e: React.KeyboardEvent, dot: number) => {
     if (e.key === " " || e.key === "Enter") {
@@ -182,15 +168,6 @@ export function BrailleCell({ size = "lg" }: Props) {
               {m === "livre" ? "Modo livre" : m === "treino" ? "Modo treino" : "Desafio"}
             </Button>
           ))}
-          <Button
-            variant={speakOn ? "default" : "outline"}
-            size="sm"
-            onClick={() => setSpeakOn((v) => !v)}
-            aria-pressed={speakOn}
-            aria-label={speakOn ? "Desligar voz" : "Ligar voz"}
-          >
-            {speakOn ? "Voz: ligada" : "Voz: desligada"}
-          </Button>
         </div>
       </header>
 
@@ -275,9 +252,6 @@ export function BrailleCell({ size = "lg" }: Props) {
           </dl>
           <p className="rounded-lg bg-accent/40 p-3 text-sm text-accent-foreground">
             {sign.description}
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Falado: <span className="font-medium">{spoken}</span>
           </p>
 
           {target && (
