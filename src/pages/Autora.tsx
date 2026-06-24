@@ -364,7 +364,7 @@ const Autora = () => {
               <h4 className="font-bold text-foreground">{a.titulo}</h4>
               {a.sub && <p className="mt-1 text-sm text-foreground/80">{a.sub}</p>}
               <p className="mt-1 text-xs text-muted-foreground">{a.veiculo}</p>
-              {a.link && <div className="mt-2"><LinkExterno href={a.link}>Ler publicação</LinkExterno></div>}
+              {a.link && <div className="mt-2"><LinkExterno href={a.link}>Assistir à participação</LinkExterno></div>}
             </li>
           ))}
         </ul>
