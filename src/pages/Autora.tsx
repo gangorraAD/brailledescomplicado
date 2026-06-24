@@ -367,7 +367,7 @@ const Autora = () => {
 
         <h3 className="mt-8 text-xl font-bold text-primary">Premiações e reconhecimentos</h3>
         <figure className="mt-4 overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-          <img src="https://braillu.com.br/img/premios/montagem-premios-luciane-molina.jpg" alt="Montagem com fotos, certificados e troféus de premiações recebidas por Luciane Molina." loading="lazy" className="w-full object-cover" />
+          <SafeImg src="https://braillu.com.br/img/premios/montagem-premios-luciane-molina.jpg" alt="Montagem com fotos, certificados e troféus de premiações recebidas por Luciane Molina." loading="lazy" className="w-full object-cover" />
           <figcaption className="p-3 text-sm text-muted-foreground">Reconhecimentos recebidos por Luciane Molina em acessibilidade, educação inclusiva e valorização do Sistema Braille.</figcaption>
         </figure>
         <ul className="mt-4 space-y-4">
@@ -429,7 +429,7 @@ const Autora = () => {
               <CarouselItem key={d.nome} className="pl-4 basis-full md:basis-1/2">
                 <article className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] h-full">
                   <div className="flex items-center gap-4">
-                    <img src={d.foto} alt={`Foto de ${d.nome.replace("Depoimento de ", "")}.`} loading="lazy" className="h-16 w-16 rounded-full object-cover" />
+                    <SafeImg src={d.foto} alt={`Foto de ${d.nome.replace("Depoimento de ", "")}.`} loading="lazy" className="h-16 w-16 rounded-full object-cover" />
                     <div>
                       <h3 className="text-lg font-bold text-primary">{d.nome}</h3>
                       <p className="text-xs text-muted-foreground">{d.quem}</p>
