@@ -78,7 +78,7 @@ const impacto = [
   { src: "https://braillu.com.br/img/premios/premiacao-projeto-tremembe.jpg", alt: "Luciane Molina segura certificado Ações Inclusivas.", caption: "Reconhecimento pelo projeto realizado em Tremembé." },
   { src: "https://braillu.com.br/img/eventos/lancamento-livro-pocos-de-caldas-capitulo.jpg", alt: "Luciane Molina ao lado de banner laranja do lançamento do livro.", caption: "Lançamento de livro com capítulo de sua autoria." },
   { src: "https://braillu.com.br/img/eventos/apresentacao-tcc-banner-braille-unesp.jpeg", alt: "Luciane Molina lê texto em Braille em banner acessível.", caption: "Pesquisa acadêmica apresentada em banner acessível." },
-  { src: "https://braillu.com.br/img/luciane/luciane-lendo-placa-braille-na-praca-sensorial.jpg", alt: "Luciane Molina toca uma placa em Braille em praça sensorial.", caption: "Braille também ocupa os espaços públicos." },
+  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/luciane-lendo-placa-braille-na-praca-sensorial.jpg", alt: "Luciane Molina toca uma placa em Braille em praça sensorial.", caption: "Braille também ocupa os espaços públicos." },
 ];
 
 const artigos = [
