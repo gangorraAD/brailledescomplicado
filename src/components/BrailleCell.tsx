@@ -20,7 +20,7 @@ export function BrailleCell({ size = "lg" }: Props) {
   const [target, setTarget] = useState<{ letter: string; mask: number } | null>(null);
   const [feedback, setFeedback] = useState<string>("");
   const [score, setScore] = useState({ acertos: 0, total: 0 });
-  const [speakOn, setSpeakOn] = useState<boolean>(true);
+  
   const liveRef = useRef<HTMLDivElement>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const wrongPlayedRef = useRef<number>(-1);
