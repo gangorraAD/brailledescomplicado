@@ -4,6 +4,29 @@ import { useEffect } from "react";
 import { ArrowRight, BookOpen, MessageCircle, Hand, Sparkles, ExternalLink } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
+// Imagens hospedadas no Lovable Cloud (bucket book-images)
+const CLOUD_FOTO_AUTORA =
+  "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/FOTO_AUTORA.jpg";
+
+// Wrapper que oculta a imagem caso a URL externa retorne erro/redirect (evita
+// quadros vazios quando o site original braillu.com.br não está servindo arquivos).
+function SafeImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+  return (
+    <img
+      {...props}
+      onError={(e) => {
+        const el = e.currentTarget;
+        const fig = el.closest("figure");
+        if (fig) {
+          (fig as HTMLElement).style.display = "none";
+        } else {
+          el.style.display = "none";
+        }
+      }}
+    />
+  );
+}
+
 const WA_TORNAR_ACESSIVEL =
   "https://wa.me/5512981020340?text=Ol%C3%A1%2C+vim+pela+sua+p%C3%A1gina+e+quero+tornar+meu+curso+acess%C3%ADvel+para+estudantes+cegos.";
 const WA_ORIENTACAO_PRATICA =
@@ -107,7 +130,7 @@ const depoimentos = [
 function Figura({ src, alt, caption }: { src: string; alt: string; caption: string }) {
   return (
     <figure className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-      <img src={src} alt={alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+      <SafeImg src={src} alt={alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
       <figcaption className="p-3 text-sm text-muted-foreground">{caption}</figcaption>
     </figure>
   );
