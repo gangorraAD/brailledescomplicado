@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { ArrowRight, BookOpen, MessageCircle, Hand, Sparkles, ExternalLink } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const WA_TORNAR_ACESSIVEL =
   "https://wa.me/5512981020340?text=Ol%C3%A1%2C+vim+pela+sua+p%C3%A1gina+e+quero+tornar+meu+curso+acess%C3%ADvel+para+estudantes+cegos.";
@@ -396,22 +397,33 @@ const Autora = () => {
         <p className="mt-3 text-base leading-relaxed text-foreground/90 md:text-lg">
           A experiência de quem já participou da mentoria e do curso de Braille mostra, na prática, como a orientação transforma o trabalho pedagógico e a segurança de professores, famílias e instituições.
         </p>
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          {depoimentos.map((d) => (
-            <article key={d.nome} className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)]">
-              <div className="flex items-center gap-4">
-                <img src={d.foto} alt={`Foto de ${d.nome.replace("Depoimento de ", "")}.`} loading="lazy" className="h-16 w-16 rounded-full object-cover" />
-                <div>
-                  <h3 className="text-lg font-bold text-primary">{d.nome}</h3>
-                  <p className="text-xs text-muted-foreground">{d.quem}</p>
-                </div>
-              </div>
-              <blockquote className="mt-4 space-y-3 border-l-4 border-primary/40 pl-4 text-sm italic leading-relaxed text-foreground/90">
-                {d.texto.map((p, i) => <p key={i}>{p}</p>)}
-              </blockquote>
-            </article>
-          ))}
-        </div>
+        <Carousel
+          opts={{ align: "start", loop: true }}
+          className="mt-6 w-full"
+        >
+          <CarouselContent className="-ml-4">
+            {depoimentos.map((d) => (
+              <CarouselItem key={d.nome} className="pl-4 basis-full md:basis-1/2">
+                <article className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] h-full">
+                  <div className="flex items-center gap-4">
+                    <img src={d.foto} alt={`Foto de ${d.nome.replace("Depoimento de ", "")}.`} loading="lazy" className="h-16 w-16 rounded-full object-cover" />
+                    <div>
+                      <h3 className="text-lg font-bold text-primary">{d.nome}</h3>
+                      <p className="text-xs text-muted-foreground">{d.quem}</p>
+                    </div>
+                  </div>
+                  <blockquote className="mt-4 space-y-3 border-l-4 border-primary/40 pl-4 text-sm italic leading-relaxed text-foreground/90">
+                    {d.texto.map((p, i) => <p key={i}>{p}</p>)}
+                  </blockquote>
+                </article>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="mt-4 flex justify-center gap-2">
+            <CarouselPrevious className="static translate-x-0 translate-y-0" />
+            <CarouselNext className="static translate-x-0 translate-y-0" />
+          </div>
+        </Carousel>
       </section>
 
       {/* Próximo passo */}
