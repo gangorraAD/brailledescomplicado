@@ -65,7 +65,7 @@ const artigos = [
   { titulo: "Teorias da Aprendizagem: Deficiência Visual", sub: "", veiculo: "Universidade Federal do ABC, CAPES, UAB · 2022", link: "https://servidor-conteudo.ufabc.edu.br/arquivos/2023071131ae2a2614646973900b3763e/Deficiencia_visual_.pdf" },
   { titulo: "Ao Vivo e a Cores", sub: "Relatos de casos de audiodescrição de eventos ao vivo.", veiculo: "Amazon · 2021", link: "https://www.amazon.com.br/Ao-Vivo-Cores-relatos-audiodescri%C3%A7%C3%A3o-ebook/dp/B094R95MBM" },
   { titulo: "O Sistema Braille e a formação do professor", sub: "O acesso à leitura e à escrita por pessoas cegas.", veiculo: "Revista do Núcleo de Educação a Distância da UNESP · 2019", link: "https://ojs2.ead.unesp.br/index.php/cdep3/article/view/InFor4603v5n12019" },
-  { titulo: "As placas de sinalização em Braille na escola inclusiva", sub: "Construindo espaços acessíveis na perspectiva da sustentabilidade.", veiculo: "Repositório Aberto, UAB · 2018", link: "https://braillu.com.br/docs/2018_portugal_placas_Braille.pdf" },
+  { titulo: "As placas de sinalização em Braille na escola inclusiva", sub: "Construindo espaços acessíveis na perspectiva da sustentabilidade.", veiculo: "Repositório Aberto, UAB · 2018", link: "https://1drv.ms/b/c/7d566d1cf1d9e85b/IQBYVn-3FIddSY9AHjoGTdRGATKOWQKJPv4g9zLNyTluNAw?e=fiqKV8" },
 ];
 
 const premios = [
