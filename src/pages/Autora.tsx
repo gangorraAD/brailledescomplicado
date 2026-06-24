@@ -165,7 +165,7 @@ const Autora = () => {
         aria-labelledby="autora-hero-title"
         className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-secondary/40 via-background to-accent/40 p-8 md:p-14 shadow-[var(--shadow-elegant)]"
       >
-        <img
+        <SafeImg
           src="https://braillu.com.br/img/braillu-logo.png"
           alt="Logo da Braillu+, com identidade em roxo, amarelo e laranja, pontos em Braille e a mensagem Multiplicando Ações Inclusivas."
           className="relative z-10 mb-6 h-20 w-auto md:h-24"
@@ -247,7 +247,7 @@ const Autora = () => {
       {/* Sobre a autora */}
       <section aria-labelledby="sobre-title" className="grid gap-8 md:grid-cols-[280px_1fr] md:items-start">
         <figure className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-          <img src="https://braillu.com.br/img/luciane/luciane-foto-quem-sou-eu.png" alt="Luciane Molina sorrindo ao lado de painel do Memorial da Inclusão." loading="lazy" className="aspect-square w-full object-cover" />
+          <SafeImg src={CLOUD_FOTO_AUTORA} alt="Luciane Molina sorrindo ao lado de painel do Memorial da Inclusão." loading="lazy" className="aspect-square w-full object-cover" />
           <figcaption className="p-3 text-sm text-muted-foreground">Luciane Molina.</figcaption>
         </figure>
         <div>
