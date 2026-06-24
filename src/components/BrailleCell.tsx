@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { lookupSign, dotsToMask, maskToUnicode, ALL_SIGNS, speechFor } from "@/data/braille";
+import { lookupSign, dotsToMask, maskToUnicode, ALL_SIGNS } from "@/data/braille";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
