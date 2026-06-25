@@ -59,7 +59,7 @@ const recursos = [
   { src: "https://braillu.com.br/img/braille/braillete-02.jpg", alt: "Brailletes azuis com os furos das celas Braille sobre fundo amarelo, com placas empilhadas e pinos metálicos soltos.", caption: "Brailletes e pinos móveis como apoio à compreensão das combinações da cela Braille." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/braillete-01.jpg", alt: "Duas placas azuis de brailletes sobre fundo amarelo, com pinos metálicos encaixados formando palavras em Braille.", caption: "Montagem tátil para explorar letras, palavras e organização dos pontos." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/jogos-e-bonecos-braille.png", alt: "Cartaz colorido com dois bonecos de mãos dadas com células Braille no peito.", caption: "Propostas lúdicas aproximam crianças e educadores do Sistema Braille." },
-  { src: "https://braillu.com.br/img/braille/reglete.png", alt: "Conjunto de reglete de mesa e reglete de bolso metálicas com punção.", caption: "Regletes e punção seguem essenciais para a escrita manual em Braille." },
+  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/reglete.png", alt: "Conjunto de reglete de mesa e reglete de bolso metálicas com punção.", caption: "Regletes e punção seguem essenciais para a escrita manual em Braille." },
   { src: "https://braillu.com.br/img/braille/placa-braille-latinha-aluminio-sustentabilidade.jpg", alt: "Placas de alumínio com escrita em Braille fixadas sobre base emborrachada preta.", caption: "Acessibilidade também se constrói em sinalização, sustentabilidade e presença social." },
 ];
 
