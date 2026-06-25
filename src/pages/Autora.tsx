@@ -244,7 +244,7 @@ const Autora = () => {
           </Button>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
-          <Figura src="https://braillu.com.br/img/eventos/curso-ensinando-escrita-na-reglete.jpg" alt="Mãos utilizam punção e reglete metálica sobre folha presa em prancha para escrever em Braille." caption="Escrita em Braille com reglete e punção." />
+          <Figura src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/curso-ensinando-escrita-na-reglete.jpg" alt="Mãos utilizam punção e reglete metálica sobre folha presa em prancha para escrever em Braille." caption="Escrita em Braille com reglete e punção." />
           <Figura src="https://braillu.com.br/img/braille/maquina-perkins.png" alt="Máquina Perkins de escrever em Braille sobre tecido vermelho, com folha escrita em Braille inserida." caption="Máquina Perkins para produção de textos em Braille." />
           <Figura src="https://braillu.com.br/img/eventos/livro-ibc.jpg" alt="Livros do título A importância do Sistema Braille para a autonomia e independência da pessoa cega, em versões impressa e em Braille." caption="Publicação apresentada em versão impressa e em Braille." />
         </div>
