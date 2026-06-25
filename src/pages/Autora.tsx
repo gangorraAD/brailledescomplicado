@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, BookOpen, MessageCircle, Hand, Sparkles, ExternalLink } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
@@ -8,21 +8,39 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const CLOUD_FOTO_AUTORA =
   "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/FOTO_AUTORA.jpg";
 
-// Wrapper que oculta a imagem caso a URL externa retorne erro/redirect (evita
-// quadros vazios quando o site original braillu.com.br não está servindo arquivos).
+// Wrapper que substitui imagens quebradas por um quadro branco com o nome do
+// arquivo esperado, para que o editor identifique onde recolocar cada foto.
 function SafeImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+  const [broken, setBroken] = useState(false);
+  const { src, alt, className, ...rest } = props;
+  if (broken) {
+    const srcStr = typeof src === "string" ? src : "";
+    const fileName = srcStr.split("/").pop() || "imagem";
+    return (
+      <div
+        role="img"
+        aria-label={typeof alt === "string" ? alt : undefined}
+        className={`${className ?? ""} flex flex-col items-center justify-center gap-2 border-2 border-dashed border-border bg-white p-4 text-center`}
+      >
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          Imagem a recolocar
+        </span>
+        <span className="break-all font-mono text-xs text-foreground/80">
+          {fileName}
+        </span>
+        {typeof alt === "string" && alt && (
+          <span className="text-xs italic text-muted-foreground">{alt}</span>
+        )}
+      </div>
+    );
+  }
   return (
     <img
-      {...props}
-      onError={(e) => {
-        const el = e.currentTarget;
-        const fig = el.closest("figure");
-        if (fig) {
-          (fig as HTMLElement).style.display = "none";
-        } else {
-          el.style.display = "none";
-        }
-      }}
+      {...rest}
+      src={src}
+      alt={alt}
+      className={className}
+      onError={() => setBroken(true)}
     />
   );
 }
