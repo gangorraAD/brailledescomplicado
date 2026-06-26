@@ -246,7 +246,7 @@ const Autora = () => {
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           <Figura src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/curso-ensinando-escrita-na-reglete.jpg" alt="Mãos utilizam punção e reglete metálica sobre folha presa em prancha para escrever em Braille." caption="Escrita em Braille com reglete e punção." />
-          <Figura src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/maquina-perkins.jpg?v=3" alt="Máquina Perkins Brailler em metal cinza sobre fundo branco, com teclas pretas e placa do fabricante." caption="Máquina Perkins para produção de textos em Braille." objectPos="object-[center_0%]" />
+          <Figura src="/maquina-perkins-crop.jpg" alt="Máquina Perkins Brailler em metal cinza sobre fundo branco, com teclas pretas e placa do fabricante." caption="Máquina Perkins para produção de textos em Braille." />
           <Figura src="https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/livro-ibc.jpg?v=2" alt="Livros do título A importância do Sistema Braille para a autonomia e independência da pessoa cega, em versões impressa e em Braille." caption="Publicação apresentada em versão impressa e em Braille." />
         </div>
       </section>
