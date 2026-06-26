@@ -25,6 +25,21 @@ export function BrailleCell({ size = "lg" }: Props) {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const wrongPlayedRef = useRef<number>(-1);
   const livrePlayedRef = useRef<number>(0);
+  const soundTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const scheduleSound = (fn: () => void) => {
+    if (soundTimerRef.current) clearTimeout(soundTimerRef.current);
+    soundTimerRef.current = setTimeout(() => {
+      soundTimerRef.current = null;
+      fn();
+    }, 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (soundTimerRef.current) clearTimeout(soundTimerRef.current);
+    };
+  }, []);
 
   const getAudioCtx = () => {
     if (typeof window === "undefined") return null;
@@ -55,8 +70,11 @@ export function BrailleCell({ size = "lg" }: Props) {
     });
   };
 
-  const playCorrect = () => playTone([659.25, 987.77], 0.18, "triangle"); // E5 → B5
-  const playWrong = () => playTone([196, 155.56], 0.22, "sawtooth"); // G3 → Eb3
+  // Positivo: arpejo ascendente alegre e brilhante (C5 → E5 → G5 → C6)
+  const playCorrect = () =>
+    playTone([523.25, 659.25, 783.99, 1046.5], 0.16, "triangle");
+  // Negativo: zumbido grave descendente e longo, timbre áspero — bem distinto do positivo
+  const playWrong = () => playTone([164.81, 130.81, 98.0], 0.32, "square");
 
   const mask = useMemo(() => dotsToMask(Array.from(active)), [active]);
   const sign = lookupSign(mask);
@@ -94,7 +112,7 @@ export function BrailleCell({ size = "lg" }: Props) {
     if (mask === target.mask) {
       setFeedback(`Correto! Você formou a letra "${target.letter.toUpperCase()}".`);
       setScore((s) => ({ acertos: s.acertos + 1, total: s.total + 1 }));
-      playCorrect();
+      scheduleSound(playCorrect);
       wrongPlayedRef.current = -1;
       const t = setTimeout(pickTarget, 1200);
       return () => clearTimeout(t);
@@ -103,7 +121,7 @@ export function BrailleCell({ size = "lg" }: Props) {
     if (active.size >= target.mask.toString(2).split("1").length - 1) {
       if (wrongPlayedRef.current !== mask) {
         wrongPlayedRef.current = mask;
-        playWrong();
+        scheduleSound(playWrong);
         setFeedback(`Ainda não. Continue tentando formar "${target.letter.toUpperCase()}".`);
       }
     }
@@ -127,10 +145,16 @@ export function BrailleCell({ size = "lg" }: Props) {
     if (mode === "livre" && mask !== 0 && livrePlayedRef.current !== mask) {
       livrePlayedRef.current = mask;
       const reconhecido = Boolean(sign.letter || sign.number || sign.symbol);
-      if (reconhecido) playCorrect();
-      else playWrong();
+      if (reconhecido) scheduleSound(playCorrect);
+      else scheduleSound(playWrong);
     }
-    if (mask === 0) livrePlayedRef.current = 0;
+    if (mask === 0) {
+      livrePlayedRef.current = 0;
+      if (soundTimerRef.current) {
+        clearTimeout(soundTimerRef.current);
+        soundTimerRef.current = null;
+      }
+    }
   }, [sign, mask]);
 
   const handleKey = (e: React.KeyboardEvent, dot: number) => {
