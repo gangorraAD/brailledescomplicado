@@ -79,7 +79,7 @@ const galeriaServicos = [
 const trajetoria = [
   { src: "/__l5e/assets-v1/5afb552b-7b60-4b01-b636-6306de1aa040/luciane-professora-curso.jpg", alt: "Luciane sentada em sala de aula, lendo uma folha em Braille sobre a mesa.", caption: "Ensino de Braille em contexto formativo." },
   { src: "/__l5e/assets-v1/99d68e6c-2f9f-4e04-be9f-5d606ec541f8/luciane-digitando-braille-na-maquina.jpg", alt: "Luciane sentada em sala de aula, lendo uma folha em Braille sobre a mesa. Demonstração do uso da máquina de escrever em Braille.", caption: "Demonstração do uso da máquina de escrever em Braille." },
-  { src: "https://braillu.com.br/img/braille/luciane-mostrando-reglete.jpg", alt: "Quatro adultos em sala de aula ao redor de uma mesa com papéis.", caption: "Formação prática com reglete e acompanhamento de participantes." },
+  { src: "/__l5e/assets-v1/00a104e9-dbfd-4276-8a09-b2c5ab1aaf63/luciane-mostrando-reglete.jpg", alt: "Quatro adultos em sala de aula ao redor de uma mesa com papéis.", caption: "Formação prática com reglete e acompanhamento de participantes." },
   { src: "https://braillu.com.br/img/eventos/curso-caragua.jpg", alt: "Adultos sentados em carteiras escrevendo em cadernos.", caption: "Curso com vivências concretas de escrita e aprendizagem." },
   { src: "https://braillu.com.br/img/luciane/luciane-lendo-no-memorial-da-inclusao.jpg", alt: "Luciane em perfil, tocando um painel expositivo com inscrições em Braille.", caption: "Experiência tátil e memória da acessibilidade." },
   { src: "https://braillu.com.br/img/eventos/defesa-doutorado-usp.jpeg", alt: "Defesa de doutorado em videoconferência.", caption: "Defesa de doutorado e consolidação da trajetória acadêmica." },
