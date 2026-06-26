@@ -148,7 +148,7 @@ const depoimentos = [
 function Figura({ src, alt, caption }: { src: string; alt: string; caption: string }) {
   return (
     <figure className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-      <SafeImg src={src} alt={alt} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+      <SafeImg src={src} alt={alt} loading="lazy" className="aspect-[4/3] w-full object-cover object-top" />
       <figcaption className="p-3 text-sm text-muted-foreground">{caption}</figcaption>
     </figure>
   );
