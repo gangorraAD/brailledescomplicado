@@ -59,7 +59,7 @@ const LATTES_URL = "http://lattes.cnpq.br/5778300198160920";
 const recursos = [
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/braillete-01.jpg", alt: "Duas placas azuis de brailletes sobre fundo amarelo, com pinos metálicos encaixados formando palavras em Braille.", caption: "Montagem tátil para explorar letras, palavras e organização dos pontos." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille-azul-cinza.jpg", alt: "Alfabraille em azul e cinza.", caption: "Alfabraille como recurso concreto para o ensino." },
-  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/jogos-e-bonecos-braille.png", alt: "Cartaz colorido com dois bonecos de mãos dadas com células Braille no peito.", caption: "Propostas lúdicas aproximam crianças e educadores do Sistema Braille." },
+  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/jogos-e-bonecos-braille.png", alt: "Cartaz colorido com dois bonecos de mãos dadas com células Braille no peito.", caption: "Propostas lúdicas aproximam crianças e educadores do Sistema Braille.", fit: "object-contain" },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/reglete.png", alt: "Conjunto de reglete de mesa e reglete de bolso metálicas com punção.", caption: "Regletes e punção seguem essenciais para a escrita manual em Braille." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/placa-braille-latinha-aluminio-sustentabilidade.jpg", alt: "Placas de alumínio com escrita em Braille fixadas sobre base emborrachada preta.", caption: "Acessibilidade também se constrói em sinalização, sustentabilidade e presença social." },
 ];
@@ -146,10 +146,10 @@ const depoimentos = [
   { nome: "Depoimento de Josiane Lima", foto: "https://braillu.com.br/img/depoimentos/depoimento-josi.jpeg", quem: "Professora · Caraguatatuba, SP", texto: ["Tive o privilégio de participar de uma mentoria em Braille com a professora Luciane Molina. Com muito carinho, paciência e dedicação, ela compartilhou ensinamentos que marcaram minha caminhada e fizeram toda diferença no meu aprendizado.", "Aprendi não apenas sobre o Sistema Braille, mas também sobre sensibilidade, inclusão e a importância de olhar cada criança com amor e respeito às suas necessidades. Tudo o que ela ensinou foi muito significativo e foi utilizado para auxiliar uma criança com deficiência visual de maneira mais humana, acolhedora e eficiente.", "Sou muito grata por cada orientação, incentivo e cuidado. Sua mentoria deixou marcas lindas no meu coração e também na vida da criança que pôde ser alcançada através desse aprendizado."] },
 ];
 
-function Figura({ src, alt, caption, objectPos = "object-top" }: { src: string; alt: string; caption: string; objectPos?: string }) {
+function Figura({ src, alt, caption, objectPos = "object-top", aspect = "aspect-[4/3]", fit = "object-cover" }: { src: string; alt: string; caption: string; objectPos?: string; aspect?: string; fit?: string }) {
   return (
     <figure className="overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-      <SafeImg src={src} alt={alt} loading="lazy" className={`aspect-[4/3] w-full object-cover ${objectPos}`} />
+      <SafeImg src={src} alt={alt} loading="lazy" className={`${aspect} w-full ${fit} ${objectPos}`} />
       <figcaption className="p-3 text-sm text-muted-foreground">{caption}</figcaption>
     </figure>
   );
