@@ -71,7 +71,7 @@ const servicos = [
 ];
 
 const galeriaServicos = [
-  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille.png", alt: "Conjunto de peças do alfabraille em vermelho e amarelo.", caption: "Alfabraille como recurso concreto para o ensino." },
+  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille-azul-cinza.jpg", alt: "Alfabraille em azul e cinza.", caption: "Alfabraille como recurso concreto para o ensino." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/livro-braille-bricks.jpg", alt: "Blocos LEGO Braille Bricks coloridos espalhados sobre superfície clara.", caption: "Braille Bricks em proposta lúdica de alfabetização." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/luciane-mostrando-cela-braille-em-formacao.jpeg", alt: "Luciane Molina segura um alfabraille gigante em sala de aula.", caption: "Formação com materiais táteis e participação ativa." },
 ];
