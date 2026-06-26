@@ -57,7 +57,7 @@ const LATTES_URL = "http://lattes.cnpq.br/5778300198160920";
 
 const recursos = [
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/braillete-01.jpg", alt: "Duas placas azuis de brailletes sobre fundo amarelo, com pinos metálicos encaixados formando palavras em Braille.", caption: "Montagem tátil para explorar letras, palavras e organização dos pontos." },
-  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille.png", alt: "Conjunto de peças do alfabraille em vermelho e amarelo.", caption: "Alfabraille como recurso concreto para o ensino." },
+  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille-azul-cinza.jpg", alt: "Alfabraille em azul e cinza.", caption: "Alfabraille como recurso concreto para o ensino." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/jogos-e-bonecos-braille.png", alt: "Cartaz colorido com dois bonecos de mãos dadas com células Braille no peito.", caption: "Propostas lúdicas aproximam crianças e educadores do Sistema Braille." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/reglete.png", alt: "Conjunto de reglete de mesa e reglete de bolso metálicas com punção.", caption: "Regletes e punção seguem essenciais para a escrita manual em Braille." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/placa-braille-latinha-aluminio-sustentabilidade.jpg", alt: "Placas de alumínio com escrita em Braille fixadas sobre base emborrachada preta.", caption: "Acessibilidade também se constrói em sinalização, sustentabilidade e presença social." },
@@ -71,7 +71,7 @@ const servicos = [
 ];
 
 const galeriaServicos = [
-  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille.png", alt: "Conjunto de peças do alfabraille em vermelho e amarelo.", caption: "Alfabraille como recurso concreto para o ensino." },
+  { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/alfabraille-azul-cinza.jpg", alt: "Alfabraille em azul e cinza.", caption: "Alfabraille como recurso concreto para o ensino." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/livro-braille-bricks.jpg", alt: "Blocos LEGO Braille Bricks coloridos espalhados sobre superfície clara.", caption: "Braille Bricks em proposta lúdica de alfabetização." },
   { src: "https://ftoenhzwgfyhtecowrkd.supabase.co/storage/v1/object/public/book-images/luciane-mostrando-cela-braille-em-formacao.jpeg", alt: "Luciane Molina segura um alfabraille gigante em sala de aula.", caption: "Formação com materiais táteis e participação ativa." },
 ];
