@@ -105,23 +105,20 @@ export function BrailleCell({ size = "lg" }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
-  // Verificar resposta no modo treino/desafio
+  // Verificar resposta no modo treino/desafio (apenas estado/feedback visual; som é unificado abaixo)
   useEffect(() => {
     if (!target) return;
     if (mask === 0) return;
     if (mask === target.mask) {
       setFeedback(`Correto! Você formou a letra "${target.letter.toUpperCase()}".`);
       setScore((s) => ({ acertos: s.acertos + 1, total: s.total + 1 }));
-      scheduleSound(playCorrect);
       wrongPlayedRef.current = -1;
-      const t = setTimeout(pickTarget, 1200);
+      const t = setTimeout(pickTarget, 1400);
       return () => clearTimeout(t);
     }
-    // Errou: dots iguais ou superiores ao alvo, mas máscara diferente
     if (active.size >= target.mask.toString(2).split("1").length - 1) {
       if (wrongPlayedRef.current !== mask) {
         wrongPlayedRef.current = mask;
-        scheduleSound(playWrong);
         setFeedback(`Ainda não. Continue tentando formar "${target.letter.toUpperCase()}".`);
       }
     }
@@ -140,12 +137,15 @@ export function BrailleCell({ size = "lg" }: Props) {
       symbol: sign.symbol,
       letter: sign.letter,
     });
-    // Feedback sonoro no modo livre: positivo se a composição corresponde
-    // a um sinal conhecido (letra, número ou símbolo), negativo caso contrário.
-    if (mode === "livre" && mask !== 0 && livrePlayedRef.current !== mask) {
+    // Feedback sonoro unificado para todos os modos: 2s após o último toque,
+    // toca positivo se a composição é válida no contexto do modo, negativo caso contrário.
+    if (mask !== 0 && livrePlayedRef.current !== mask) {
       livrePlayedRef.current = mask;
       const reconhecido = Boolean(sign.letter || sign.number || sign.symbol);
-      if (reconhecido) scheduleSound(playCorrect);
+      const acerto =
+        (mode === "livre" && reconhecido) ||
+        ((mode === "treino" || mode === "desafio") && target !== null && mask === target.mask);
+      if (acerto) scheduleSound(playCorrect);
       else scheduleSound(playWrong);
     }
     if (mask === 0) {
@@ -155,7 +155,7 @@ export function BrailleCell({ size = "lg" }: Props) {
         soundTimerRef.current = null;
       }
     }
-  }, [sign, mask]);
+  }, [sign, mask, mode, target]);
 
   const handleKey = (e: React.KeyboardEvent, dot: number) => {
     if (e.key === " " || e.key === "Enter") {
