@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { ArrowRight, BookOpen, MessageCircle, Hand, Sparkles, ExternalLink } from "lucide-react";
@@ -447,7 +448,11 @@ const Autora = () => {
               <CarouselItem key={d.nome} className="pl-4 basis-full md:basis-1/2">
                 <article className="rounded-2xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] h-full">
                   <div className="flex items-center gap-4">
-                    <SafeImg src={d.foto} alt={`Foto de ${d.nome.replace("Depoimento de ", "")}.`} loading="lazy" className="h-16 w-16 rounded-full object-cover" />
+                    <Avatar className="h-16 w-16 border-2 border-primary/20">
+                      <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
+                        {d.nome.replace("Depoimento de ", "").charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
                     <div>
                       <h3 className="text-lg font-bold text-primary">{d.nome}</h3>
                       <p className="text-xs text-muted-foreground">{d.quem}</p>
