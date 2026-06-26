@@ -82,7 +82,7 @@ const trajetoria = [
   { src: "/__l5e/assets-v1/00a104e9-dbfd-4276-8a09-b2c5ab1aaf63/luciane-mostrando-reglete.jpg", alt: "Quatro adultos em sala de aula ao redor de uma mesa com papéis.", caption: "Formação prática com reglete e acompanhamento de participantes." },
   { src: "/__l5e/assets-v1/59c19c68-51eb-41cf-af7e-dfa091dac202/curso-caragua.jpg", alt: "Adultos sentados em carteiras escrevendo em cadernos.", caption: "Curso com vivências concretas de escrita e aprendizagem." },
   { src: "/luciane-lendo-no-memorial-zoomout.jpg", alt: "Luciane em pé ao lado de um banner em Braille, sorrindo e tocando o painel expositivo.", caption: "Experiência tátil e memória da acessibilidade.", objectPos: "object-[center_30%]" },
-  { src: "https://braillu.com.br/img/eventos/defesa-doutorado-usp.jpeg", alt: "Defesa de doutorado em videoconferência.", caption: "Defesa de doutorado e consolidação da trajetória acadêmica." },
+  { src: "/__l5e/assets-v1/36f9066d-d308-4831-963f-8fcdad86fc77/defesa-doutorado-usp.jpeg", alt: "Defesa de doutorado em videoconferência.", caption: "Defesa de doutorado e consolidação da trajetória acadêmica." },
 ];
 
 const passos = [
