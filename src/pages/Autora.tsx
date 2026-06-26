@@ -77,7 +77,7 @@ const galeriaServicos = [
 ];
 
 const trajetoria = [
-  { src: "https://braillu.com.br/img/luciane/luciane-professora-em-curso.jpg", alt: "Luciane sentada em sala de aula, lendo uma folha em Braille sobre a mesa.", caption: "Ensino de Braille em contexto formativo." },
+  { src: "/__l5e/assets-v1/5afb552b-7b60-4b01-b636-6306de1aa040/luciane-professora-curso.jpg", alt: "Luciane sentada em sala de aula, lendo uma folha em Braille sobre a mesa.", caption: "Ensino de Braille em contexto formativo." },
   { src: "https://braillu.com.br/img/luciane/luciane-digitando-braille-na-maquina.jpg", alt: "Duas mulheres em pé usando uma máquina de escrever em Braille sobre a mesa.", caption: "Demonstração do uso da máquina de escrever em Braille." },
   { src: "https://braillu.com.br/img/braille/luciane-mostrando-reglete.jpg", alt: "Quatro adultos em sala de aula ao redor de uma mesa com papéis.", caption: "Formação prática com reglete e acompanhamento de participantes." },
   { src: "https://braillu.com.br/img/eventos/curso-caragua.jpg", alt: "Adultos sentados em carteiras escrevendo em cadernos.", caption: "Curso com vivências concretas de escrita e aprendizagem." },
