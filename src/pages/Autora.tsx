@@ -259,8 +259,8 @@ const Autora = () => {
         <p className="mt-3 text-base leading-relaxed text-foreground/90 md:text-lg">
           O Sistema Braille se fortalece quando está presente nas práticas pedagógicas, nos materiais de alfabetização, nas experiências lúdicas e também nos espaços públicos. Esses recursos ampliam possibilidades de ensino, leitura, escrita e participação.
         </p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {recursos.map((r) => <Figura key={r.src} {...r} className="w-[70%] justify-self-center" />)}
+        <div className="mt-6 grid justify-items-center gap-4 sm:grid-cols-2 md:grid-cols-3">
+          {recursos.map((r) => <Figura key={r.src} {...r} />)}
         </div>
       </section>
 
