@@ -52,45 +52,65 @@ export function Layout({ children }: { children: ReactNode }) {
               Luciane Molina <span className="font-light text-foreground">| BRAILLU MAIS</span>
             </span>
           </Link>
-          <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex">
-            <NavLink to="/" end className={({ isActive }) => navClass(isActive)}>
-              Autora
-            </NavLink>
-            {user && (
-              <>
-                <NavLink to="/oficina" className={({ isActive }) => navClass(isActive)}>
-                  Oficina
+          <nav aria-label="Navegação principal" className="hidden lg:block">
+            <ul className="flex items-center gap-1" role="list">
+              <li>
+                <NavLink to="/" end aria-label="Página da autora" className={({ isActive }) => navClass(isActive)}>
+                  Autora
                 </NavLink>
-                <NavLink to="/sumario" className={({ isActive }) => navClass(isActive)}>
-                  Sumário
+              </li>
+              {user && (
+                <>
+                  <li>
+                    <NavLink to="/oficina" aria-label="Oficina Braille Descomplicado" className={({ isActive }) => navClass(isActive)}>
+                      Oficina
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/sumario" aria-label="Sumário do livro" className={({ isActive }) => navClass(isActive)}>
+                      Sumário
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              <li>
+                <NavLink to="/cela" aria-label="Cela Braille interativa" className={({ isActive }) => navClass(isActive)}>
+                  Cela interativa
                 </NavLink>
-              </>
-            )}
-            <NavLink to="/cela" className={({ isActive }) => navClass(isActive)}>
-              Cela interativa
-            </NavLink>
-            {user && (
-              <NavLink to="/materiais" className={({ isActive }) => navClass(isActive)}>
-                Materiais
-              </NavLink>
-            )}
-            {isAdmin && (
-              <NavLink to="/admin" className={({ isActive }) => navClass(isActive)}>
-                Admin
-              </NavLink>
-            )}
-            {user ? (
-              <>
-                <span className="ml-2 text-sm text-muted-foreground">
-                  {profile?.nickname ?? profile?.name ?? user.email}
-                </span>
-                <Button variant="ghost" size="sm" onClick={signOut}>Sair</Button>
-              </>
-            ) : (
-              <NavLink to="/auth" className={({ isActive }) => navClass(isActive)}>
-                Entrar
-              </NavLink>
-            )}
+              </li>
+              {user && (
+                <li>
+                  <NavLink to="/materiais" aria-label="Materiais complementares" className={({ isActive }) => navClass(isActive)}>
+                    Materiais
+                  </NavLink>
+                </li>
+              )}
+              {isAdmin && (
+                <li>
+                  <NavLink to="/admin" aria-label="Painel administrativo" className={({ isActive }) => navClass(isActive)}>
+                    Admin
+                  </NavLink>
+                </li>
+              )}
+              {user ? (
+                <>
+                  <li>
+                    <span className="ml-2 text-sm text-muted-foreground" aria-label={`Usuário autenticado: ${profile?.nickname ?? profile?.name ?? user.email}`}>
+                      {profile?.nickname ?? profile?.name ?? user.email}
+                    </span>
+                  </li>
+                  <li>
+                    <Button variant="ghost" size="sm" onClick={signOut} aria-label="Sair da conta">Sair</Button>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <NavLink to="/auth" aria-label="Entrar na conta" className={({ isActive }) => navClass(isActive)}>
+                    Entrar
+                  </NavLink>
+                </li>
+              )}
+            </ul>
           </nav>
           {user && (
             <Button
