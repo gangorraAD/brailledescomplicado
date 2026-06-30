@@ -387,7 +387,7 @@ const Autora = () => {
 
         <h3 className="mt-8 text-xl font-bold text-primary">Premiações e reconhecimentos</h3>
         <figure className="mt-4 overflow-hidden rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
-          <SafeImg src="https://braillu.com.br/img/premios/montagem-premios-luciane-molina.jpg" alt="Montagem com fotos, certificados e troféus de premiações recebidas por Luciane Molina." loading="lazy" className="w-full object-cover" />
+          <SafeImg src="/montagem-premios-luciane-molina.jpg" alt="Montagem com fotos, certificados e troféus de premiações recebidas por Luciane Molina." loading="lazy" className="w-full object-cover" />
           <figcaption className="p-3 text-sm text-muted-foreground">Reconhecimentos recebidos por Luciane Molina em acessibilidade, educação inclusiva e valorização do Sistema Braille.</figcaption>
         </figure>
         <ul className="mt-4 space-y-4">
